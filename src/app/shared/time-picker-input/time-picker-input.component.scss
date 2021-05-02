@@ -1,0 +1,40 @@
+:host.floating-label {
+
+    .time-picker-input-spacer {
+        opacity: 0.6;
+    }
+
+    .time-picker-input-element::placeholder {
+        opacity: 1;
+    }
+}
+
+.time-picker-input-container {
+    display: flex;
+}
+
+.time-picker-input-element {
+    flex-basis: 0;
+    min-width: 2ch;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    color: currentColor;
+    font: inherit;
+
+    &::placeholder {
+        opacity: 0;
+    }
+}
+
+.time-picker-input-spacer {
+    margin: 0 8px;
+    transition: opacity 200ms;
+    opacity: 0;
+}
+
+.time-zone {
+    flex-grow: 1;
+    min-width: 150px;
+}

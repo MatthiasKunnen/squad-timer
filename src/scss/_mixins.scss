@@ -1,0 +1,36 @@
+@mixin container {
+    display: block;
+    max-width: 1140px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 16px;
+
+    @media (max-width: 719px) {
+        padding: 8px;
+    }
+}
+
+@mixin gap($gap) {
+    margin: -$gap;
+
+    > * {
+        margin: $gap;
+    }
+}
+
+@mixin gap-horizontal($gap) {
+    margin-right: -$gap;
+    margin-left: -$gap;
+
+    > * {
+        margin-right: $gap;
+        margin-left: $gap;
+    }
+}
+
+@mixin mat-icon-size($px) {
+    width: $px;
+    height: $px;
+    font-size: $px;
+    line-height: $px;
+}

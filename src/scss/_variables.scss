@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+
+$brand-palette: (
+    50 : #ffebee,
+    100 : #ffcdd2,
+    200 : #ef9a9a,
+    300 : #e57373,
+    400 : #ef5350,
+    500 : #f44336,
+    600 : #e53935,
+    700 : #d32f2f,
+    800 : #c62828,
+    900 : #b71c1c,
+    A100 : #ff8a80,
+    A200 : #ff5252,
+    A400 : #ff1744,
+    A700 : #d50000,
+    contrast: (
+        50 : #000,
+        100 : #000,
+        200 : #000,
+        300 : #000,
+        400 : #fff,
+        500 : #fff,
+        600 : #fff,
+        700 : #fff,
+        800 : #fff,
+        900 : #fff,
+        A100 : #000,
+        A200 : #000,
+        A400 : #000,
+        A700 : #000,
+    )
+);
+
+$palette-primary: mat-palette($brand-palette, 700);
+$palette-warn: mat-palette($mat-red);
+
+$primary: mat-color($palette-primary);
+$warn: mat-color($palette-warn);
+
+$theme: mat-dark-theme($palette-primary, $palette-primary, $palette-warn);
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);
+$is-dark-theme: map-get($theme, is-dark);
+$label-color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
+$warning: #ffc71e;
+
+$form-field-padding-bottom: 1.34375em; // From .mat-form-field-wrapper

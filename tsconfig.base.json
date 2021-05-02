@@ -1,0 +1,24 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "declaration": false,
+        "downlevelIteration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "lib": [
+            "es2018",
+            "es2019",
+            "dom",
+            "esnext.asynciterable"
+        ],
+        "module": "es2020",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+    }
+}

@@ -1,0 +1,87 @@
+@import 'mixins';
+@import 'normalize';
+@import 'material-theme';
+@import '~ngx-toastr/toastr';
+@import 'variables';
+
+body {
+    overflow-x: hidden;
+}
+
+.text {
+
+    &-error {
+        color: mat-color($mat-red, 500) !important;
+    }
+
+    &-success {
+        color: mat-color($mat-green, 500) !important;
+    }
+
+    &-warning {
+        color: $warning !important;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.flex-spacer {
+    flex-grow: 1;
+}
+
+.split-16 {
+    display: grid;
+    grid-column-gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+button.link {
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #444;
+    outline: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+a.link {
+    transition: opacity 0.5ms ease-out;
+    text-decoration: underline;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+form {
+
+    mat-form-field,
+    input {
+        width: 100%;
+    }
+
+    .form-row {
+
+        @media (min-width: 480px) {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            mat-form-field {
+                margin-right: 16px;
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+.cdk-overlay-pane {
+    max-width: 95vw !important;
+}
