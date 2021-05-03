@@ -58,20 +58,66 @@ const headers = environment.production
     : '';
 
 process.stdout.write(`
-location / {
-#   If none of the other blocks match: serve file if it exists, index.html otherwise
-    try_files $uri /index.html;
-${headers}
-    add_header Cache-Control "public, max-age=604800";
+daemon off;
+# Heroku dynos have at least 4 cores.
+worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
+
+events {
+	use epoll;
+	accept_mutex on;
+	worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
 }
 
-location = /index.html {
-${headers}
-    add_header Cache-Control "no-store";
-}
+http {
+	gzip on;
+	gzip_comp_level 2;
+	gzip_min_length 512;
 
-location ~* \\.\\w+\\.(css|js)$ {
+	server_tokens off;
+
+	log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
+	access_log <%= ENV['NGINX_ACCESS_LOG_PATH'] || 'logs/nginx/access.log' %> l2met;
+	error_log <%= ENV['NGINX_ERROR_LOG_PATH'] || 'logs/nginx/error.log' %>;
+
+
+	include mime.types;
+	default_type application/octet-stream;
+	sendfile on;
+
+	# Must read the body in 5 seconds.
+	client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
+
+	server {
+		listen <%= ENV["PORT"] %>;
+		server_name _;
+		keepalive_timeout 5;
+		client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+
+        root /app/dist/public;
+
+        index index.html;
+
+		location / {
+        #   If none of the other blocks match: serve file if it exists, index.html otherwise
+            try_files $uri /index.html;
 ${headers}
-    add_header Cache-Control "public, max-age=31536000, immutable";
+            add_header Cache-Control "public, max-age=604800";
+        }
+
+        location = /index.html {
+${headers}
+            add_header Cache-Control "no-store";
+        }
+
+        location ~* ^/[^.]+\\.(js|json|webmanifest)$ {
+${headers}
+            add_header Cache-Control "no-cache";
+        }
+
+        location ~* \\.\\w+\\.(css|js)$ {
+${headers}
+            add_header Cache-Control "public, max-age=31536000, immutable";
+        }
+    }
 }
 `.trimLeft());

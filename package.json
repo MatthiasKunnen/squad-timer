@@ -6,6 +6,7 @@
         "build:production": "run-s build:*:pre && ng build --configuration production && run-s build:*:post",
         "build:nginx:post": "ts-node --transpile-only --project build/tsconfig.json build/nginx.conf.ts --configuration production > dist/nginx.conf",
         "compile:ts": "tsc -p tsconfig.strict.json",
+        "heroku-postbuild": "yarn run build:production && mkdir config && mv dist/nginx.conf config/nginx.conf.erb",
         "lint": "npm-run-all -cp \"lint:css {@}\" \"lint:ts {@}\" -- ",
         "lint:css": "stylelint \"src/**/*.scss\" --syntax scss",
         "lint:ts": "eslint \"src/**/*.ts\" \"build/**/*.ts\"",
