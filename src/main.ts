@@ -3,7 +3,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 import {AppModule} from './app/app.module';
 import {SentryErrorHandler} from './app/error/sentry/sentry-error.handler';
-import {Logger} from './app/shared/utils/logger.util';
+import {Logger} from './app/utils/logger.util';
 import {environment} from './environments/environment';
 
 async function start() {

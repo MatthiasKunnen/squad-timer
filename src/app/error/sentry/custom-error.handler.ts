@@ -1,7 +1,7 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {ErrorHandler, Injectable} from '@angular/core';
 
-import {Logger} from '../../shared/utils/logger.util';
+import {Logger} from '../../utils/logger.util';
 
 @Injectable()
 export class CustomErrorHandler implements ErrorHandler {

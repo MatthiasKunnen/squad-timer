@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {ToastrService} from 'ngx-toastr';
 
-import {Logger} from '../shared/utils/logger.util';
+import {Logger} from '../utils/logger.util';
 
 @Injectable()
 export class UpdateService {

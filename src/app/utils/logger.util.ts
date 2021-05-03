@@ -1,7 +1,7 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {captureException, captureMessage, Severity} from '@sentry/browser';
 
-import {environment} from '../../../environments/environment';
+import {environment} from '../../environments/environment';
 
 interface ErrorCodeDeterminator {
     code: string;

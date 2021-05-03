@@ -20,6 +20,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {environment} from '../environments/environment';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {CountdownComponent} from './countdown/countdown.component';
 import {NotFoundComponent} from './error/not-found/not-found.component';
 import {CustomErrorHandler} from './error/sentry/custom-error.handler';
 import {HomeComponent} from './home/home.component';
@@ -35,6 +36,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
 @NgModule({
     declarations: [
         AppComponent,
+        CountdownComponent,
         HomeComponent,
         NotFoundComponent,
     ],
