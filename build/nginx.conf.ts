@@ -98,7 +98,11 @@ http {
         index index.html;
 
 		location / {
-        #   If none of the other blocks match: serve file if it exists, index.html otherwise
+		    if ($http_x_forwarded_proto != "https") {
+                return 301 https://$host$request_uri;
+            }
+
+            # If none of the other blocks match: serve file if it exists, index.html otherwise
             try_files $uri /index.html;
 ${headers}
             add_header Cache-Control "public, max-age=604800";
