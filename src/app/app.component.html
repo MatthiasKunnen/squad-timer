@@ -1,3 +1,17 @@
 <div class="mat-typography">
-    <router-outlet></router-outlet>
+    <app-header class="header"></app-header>
+    <router-outlet class="router-flex"></router-outlet>
+    <mat-toolbar class="footer-navigation">
+        <button mat-button
+                routerLink="/"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon>timer</mat-icon>
+            <label>Timer</label>
+        </button>
+        <button mat-button routerLink="about" routerLinkActive="active">
+            <mat-icon>info</mat-icon>
+            <label>About</label>
+        </button>
+    </mat-toolbar>
 </div>
