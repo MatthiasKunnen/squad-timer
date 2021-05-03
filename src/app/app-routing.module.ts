@@ -4,13 +4,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {AboutComponent} from './about/about.component';
 import {NotFoundComponent} from './error/not-found/not-found.component';
 import {SettingsComponent} from './settings/settings.component';
-import {TimerComponent} from './timer/timer.component';
+import {TimersComponent} from './timers/timers.component';
 
 const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        component: TimerComponent,
+        component: TimersComponent,
     },
     {
         path: 'about',

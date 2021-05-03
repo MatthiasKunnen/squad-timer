@@ -26,7 +26,7 @@ import {NotFoundComponent} from './error/not-found/not-found.component';
 import {CustomErrorHandler} from './error/sentry/custom-error.handler';
 import {HeaderComponent} from './layout/header/header.component';
 import {SettingsComponent} from './settings/settings.component';
-import {TimerComponent} from './timer/timer.component';
+import {TimersComponent} from './timers/timers.component';
 import {UpdateService} from './update/update.service';
 import {DateFnsDateAdapter} from './utils/date-fns-date-adapter';
 
@@ -44,7 +44,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         HeaderComponent,
         NotFoundComponent,
         SettingsComponent,
-        TimerComponent,
+        TimersComponent,
     ],
     imports: [
         BrowserAnimationsModule,
