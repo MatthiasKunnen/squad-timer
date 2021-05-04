@@ -84,6 +84,10 @@ export class TimersComponent implements OnInit {
         this.deferredSortObserver.next();
     }
 
+    changeSide(i: number): void {
+        this.timers[i].side = this.timers[i].side === 'enemy' ? 'friendly' : 'enemy';
+    }
+
     sortTimers(): void {
         this.timers = this.timers.sort((a, b) => {
             return a.endsOn.getTime() - b.endsOn.getTime();

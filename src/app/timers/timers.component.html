@@ -8,10 +8,12 @@
 </div>
 <div class="timers">
     <div class="timer mat-elevation-z1" *ngFor="let timer of timers; let i = index">
-        <svg-icon [src]="'/assets/squad/' + timer.unit.code + '.svg'"
-                  [title]="timer.unit.name"
-                  [attr.aria-label]="timer.unit.name"
-                  [svgClass]="['squad-icon', timer.side]"></svg-icon>
+        <button mat-button (click)="changeSide(i)">
+            <svg-icon [src]="'/assets/squad/' + timer.unit.code + '.svg'"
+                      [title]="timer.unit.name"
+                      [attr.aria-label]="timer.unit.name"
+                      [svgClass]="['squad-icon', timer.side]"></svg-icon>
+        </button>
         <div class="time-container">
             <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, -1)">
                 <mat-icon>remove_circle_outline</mat-icon>
