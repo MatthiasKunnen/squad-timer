@@ -1,42 +1,43 @@
 ---
 
 env:
-  browser: true
   es6: true
-
-parser: '@typescript-eslint/parser'
-
-parserOptions:
-  project:
-    - tsconfig.lint.json
-  sourceType: module
-
-extends:
-  - '@matthiaskunnen/eslint-config-angular'
 
 overrides:
   -
+    files:
+      - '*.js'
+    env:
+      node: true
+    extends:
+      - '@matthiaskunnen/eslint-config-base'
+
+  -
+    env:
+      node: true
+    extends:
+      - '@matthiaskunnen/eslint-config-typescript'
+    files:
+      - 'build/**/*.ts'
+    parser: '@typescript-eslint/parser'
     parserOptions:
       project:
         - build/tsconfig.json
-    files:
-      - 'build/**/*.ts'
-    env:
-      browser: false
-      node: true
+      sourceType: module
 
   -
+    extends:
+      - '@matthiaskunnen/eslint-config-angular'
+    env:
+      browser: true
     files:
       - 'src/**/*.interface.ts'
       - 'src/**/*.model.ts'
-
     parser: '@typescript-eslint/parser'
-
     parserOptions:
       project:
         - tsconfig.lint.json
       sourceType: module
-
     rules:
       '@typescript-eslint/member-ordering':
         - error
@@ -60,7 +61,18 @@ overrides:
               - private-instance-method
               - signature
             order: alphabetically
-
-
-rules:
-  no-console: error
+      no-console: error
+  -
+    extends:
+      - '@matthiaskunnen/eslint-config-angular'
+    env:
+      browser: true
+    files:
+      - 'src/**/*.ts'
+    parser: '@typescript-eslint/parser'
+    parserOptions:
+      project:
+        - tsconfig.lint.json
+      sourceType: module
+    rules:
+      no-console: error
