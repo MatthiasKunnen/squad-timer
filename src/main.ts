@@ -1,5 +1,6 @@
 import {enableProdMode} from '@angular/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import 'reflect-metadata';
 
 import {AppModule} from './app/app.module';
 import {SentryErrorHandler} from './app/error/sentry/sentry-error.handler';

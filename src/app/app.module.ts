@@ -16,6 +16,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularSvgIconModule} from 'angular-svg-icon';
+import {Decoverto} from 'decoverto';
 import {ToastrModule} from 'ngx-toastr';
 
 import {environment} from '../environments/environment';
@@ -30,6 +31,7 @@ import {SettingsComponent} from './settings/settings.component';
 import {TimersComponent} from './timers/timers.component';
 import {UpdateService} from './update/update.service';
 import {DateFnsDateAdapter} from './utils/date-fns-date-adapter';
+import {decoverto} from './utils/decoverto.util';
 
 registerLocaleData(locale);
 
@@ -63,6 +65,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         AppRoutingModule,
     ],
     providers: [
+        {provide: Decoverto, useValue: decoverto},
         {provide: ErrorHandler, useClass: CustomErrorHandler},
         {provide: LOCALE_ID, useValue: 'en-BE'},
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: matFormFieldDefaultOptions},

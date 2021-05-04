@@ -1,19 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {addMinutes, isAfter} from 'date-fns';
+import {Decoverto} from 'decoverto';
 import {EMPTY, fromEvent, merge, Observable, Observer, Subject, timer} from 'rxjs';
 import {debounceTime, map, mapTo, shareReplay, startWith, switchMap} from 'rxjs/operators';
 
-interface Unit {
-    code: string;
-    name: string;
-    respawnTime: number;
-}
-
-interface Timer {
-    endsOn: Date;
-    side: 'enemy' | 'friendly';
-    unit: Unit;
-}
+import {Timer, Unit} from './timer.model';
 
 @Component({
     templateUrl: './timers.component.html',
@@ -28,25 +19,40 @@ export class TimersComponent implements OnInit {
      */
     manualUpdateSubject: Subject<void>;
     timers: Array<Timer> = [];
-    units: Array<Unit> = [
-        {code: 'jeep', name: 'Jeep', respawnTime: 5},
-        {code: 'jeep-open-turret', name: 'Jeep', respawnTime: 5},
-        {code: 'jeep-anti-tank', name: 'Jeep AT', respawnTime: 10},
-        {code: 'transport-helo', name: 'Transport heli', respawnTime: 6},
-        {code: 'wheeled-apc', name: 'Wheeled APC', respawnTime: 10},
-        {code: 'wheeled-ifv', name: 'Wheeled IFV', respawnTime: 10},
-        {code: 'tracked-apc-open-top', name: 'Tracked APC open top', respawnTime: 10},
-        {code: 'tracked-apc-rws', name: 'Tracked APC RWS', respawnTime: 10},
-        {code: 'tracked-ifv', name: 'Tracked IFV', respawnTime: 15},
-        {code: 'tank', name: 'MBT', respawnTime: 20},
-    ];
+    units: Array<Unit>;
 
     /**
      * When this observable emits, the time updates.
      */
     updateObservable: Observable<void>;
 
+    private readonly storageKey = 'timers';
+
+    constructor(
+        private readonly decoverto: Decoverto,
+    ) {
+    }
+
     ngOnInit(): void {
+        this.units = this.decoverto.type(Unit).plainToInstanceArray([
+            {code: 'jeep', name: 'Jeep', respawnTime: 5},
+            {code: 'jeep-open-turret', name: 'Jeep', respawnTime: 5},
+            {code: 'jeep-anti-tank', name: 'Jeep AT', respawnTime: 10},
+            {code: 'transport-helo', name: 'Transport heli', respawnTime: 6},
+            {code: 'wheeled-apc', name: 'Wheeled APC', respawnTime: 10},
+            {code: 'wheeled-ifv', name: 'Wheeled IFV', respawnTime: 10},
+            {code: 'tracked-apc-open-top', name: 'Tracked APC open top', respawnTime: 10},
+            {code: 'tracked-apc-rws', name: 'Tracked APC RWS', respawnTime: 10},
+            {code: 'tracked-ifv', name: 'Tracked IFV', respawnTime: 15},
+            {code: 'tank', name: 'MBT', respawnTime: 20},
+        ]);
+
+        const storedTimers = localStorage.getItem('timers');
+
+        if (storedTimers !== null) {
+            this.timers = this.decoverto.type(Timer).rawToInstanceArray(storedTimers);
+        }
+
         new Observable(observer => {
             this.deferredSortObserver = observer;
         }).pipe(
@@ -86,32 +92,46 @@ export class TimersComponent implements OnInit {
 
     changeSide(i: number): void {
         this.timers[i].side = this.timers[i].side === 'enemy' ? 'friendly' : 'enemy';
+
+        this.store();
     }
 
     sortTimers(): void {
         this.timers = this.timers.sort((a, b) => {
             return a.endsOn.getTime() - b.endsOn.getTime();
         });
+
+        this.store();
     }
 
     startTimer(unit: Unit, side: Timer['side']): void {
         const endsOn = addMinutes(new Date(), unit.respawnTime);
         const insertionIndex = this.timers.findIndex(item => isAfter(item.endsOn, endsOn));
 
-        const newTimer: Timer = {
+        const newTimer = Object.assign(new Timer(), {
             endsOn,
             side,
             unit,
-        };
+        });
 
         if (insertionIndex < 0) {
             this.timers.push(newTimer);
         } else {
             this.timers.splice(Math.max(0, insertionIndex), 0, newTimer);
         }
+
+        this.store();
     }
 
     removeTimer(index: number): void {
         this.timers.splice(index, 1);
+        this.store();
+    }
+
+    store(): void {
+        localStorage.setItem(
+            this.storageKey,
+            this.decoverto.type(Timer).instanceArrayToRaw(this.timers),
+        );
     }
 }
