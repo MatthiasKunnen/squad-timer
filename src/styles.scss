@@ -10,6 +10,10 @@ body {
 
 .text {
 
+    &-center {
+        text-align: center;
+    }
+
     &-error {
         color: mat-color($mat-red, 500) !important;
     }
