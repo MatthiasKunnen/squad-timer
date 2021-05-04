@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {addMinutes, isAfter} from 'date-fns';
-import {EMPTY, fromEvent, Observable, timer} from 'rxjs';
-import {map, mapTo, shareReplay, startWith, switchMap} from 'rxjs/operators';
+import {EMPTY, fromEvent, merge, Observable, Observer, Subject, timer} from 'rxjs';
+import {debounceTime, map, mapTo, shareReplay, startWith, switchMap} from 'rxjs/operators';
 
 interface Unit {
     code: string;
@@ -21,8 +21,13 @@ interface Timer {
 })
 export class TimersComponent implements OnInit {
 
-    timers: Array<Timer> = [];
+    deferredSortObserver: Observer<void>;
 
+    /**
+     * This subject serves as a way to instantly update the time for immediate feedback.
+     */
+    manualUpdateSubject: Subject<void>;
+    timers: Array<Timer> = [];
     units: Array<Unit> = [
         {code: 'jeep', name: 'Jeep', respawnTime: 5},
         {code: 'jeep-open-turret', name: 'Jeep', respawnTime: 5},
@@ -36,22 +41,53 @@ export class TimersComponent implements OnInit {
         {code: 'tank', name: 'MBT', respawnTime: 20},
     ];
 
+    /**
+     * When this observable emits, the time updates.
+     */
     updateObservable: Observable<void>;
 
     ngOnInit(): void {
-        this.updateObservable = fromEvent(document, 'visibilitychange').pipe(
-            startWith(null),
-            map(() => document.hidden),
-            switchMap(hidden => {
-                if (hidden) {
-                    return EMPTY;
-                }
+        new Observable(observer => {
+            this.deferredSortObserver = observer;
+        }).pipe(
+            debounceTime(1500),
+        ).subscribe(() => {
+            this.sortTimers();
+        });
+        this.manualUpdateSubject = new Subject();
+        this.updateObservable = merge(
+            fromEvent(document, 'visibilitychange').pipe(
+                startWith(null),
+                map(() => document.hidden),
+                switchMap(hidden => {
+                    if (hidden) {
+                        return EMPTY;
+                    }
 
-                return timer(0, 1000);
-            }),
+                    return timer(0, 1000);
+                }),
+            ),
+            this.manualUpdateSubject,
+        ).pipe(
             mapTo(undefined),
             shareReplay(1),
         );
+    }
+
+    addMinutesToTimer(index: number, minutes: number): void {
+        const selectedTimer = this.timers[index];
+        selectedTimer.endsOn = addMinutes(selectedTimer.endsOn, minutes);
+        setTimeout(() => {
+            // Immediately update the time. Needs to be run after change detection
+            this.manualUpdateSubject.next();
+        });
+        this.deferredSortObserver.next();
+    }
+
+    sortTimers(): void {
+        this.timers = this.timers.sort((a, b) => {
+            return a.endsOn.getTime() - b.endsOn.getTime();
+        });
     }
 
     startTimer(unit: Unit, side: Timer['side']): void {

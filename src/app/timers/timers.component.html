@@ -12,7 +12,16 @@
                   [title]="timer.unit.name"
                   [attr.aria-label]="timer.unit.name"
                   [svgClass]="['squad-icon', timer.side]"></svg-icon>
-        <app-countdown [date]="timer.endsOn" [updateObservable]="updateObservable"></app-countdown>
+        <div class="time-container">
+            <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, -1)">
+                <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+            <app-countdown [date]="timer.endsOn"
+                           [updateObservable]="updateObservable"></app-countdown>
+            <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, 1)">
+                <mat-icon>add_circle_outline</mat-icon>
+            </button>
+        </div>
         <div class="actions">
             <button mat-icon-button (click)="removeTimer(i)">
                 <mat-icon>delete</mat-icon>
