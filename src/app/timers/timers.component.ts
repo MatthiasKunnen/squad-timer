@@ -3,6 +3,8 @@ import {addMinutes, isAfter} from 'date-fns';
 import {EMPTY, fromEvent, merge, Observable, Observer, Subject, timer} from 'rxjs';
 import {debounceTime, map, mapTo, shareReplay, startWith, switchMap} from 'rxjs/operators';
 
+import {MetaService} from '../meta/meta.service';
+
 interface Unit {
     code: string;
     name: string;
@@ -46,7 +48,13 @@ export class TimersComponent implements OnInit {
      */
     updateObservable: Observable<void>;
 
+    constructor(
+        private readonly meta: MetaService,
+    ) {
+    }
+
     ngOnInit(): void {
+        this.meta.setMeta({});
         new Observable(observer => {
             this.deferredSortObserver = observer;
         }).pipe(
