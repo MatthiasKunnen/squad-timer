@@ -4,7 +4,6 @@
 import {ArgumentParser} from 'argparse';
 
 import {Environment} from '../src/environments/environment.interface';
-import {getHeadHash} from './env.util';
 
 const parser = new ArgumentParser({
     addHelp: true,
