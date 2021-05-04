@@ -3,10 +3,6 @@
 
 .units {
     text-align: center;
-
-    button {
-        padding: 1px 6px;
-    }
 }
 
 .timers {
@@ -37,6 +33,10 @@
 
 .timers-info {
     margin-top: 1em;
+}
+
+button.no-padding {
+    padding: 1px 6px;
 }
 
 svg-icon {
