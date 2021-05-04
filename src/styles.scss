@@ -103,7 +103,7 @@ form {
 .squad-icon {
 
     &.enemy {
-        @include squad-icon(#6a050c, #fc403d);
+        @include squad-icon(#6a050c, $enemy-red);
     }
 
     &.friendly {

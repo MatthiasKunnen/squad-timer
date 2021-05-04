@@ -25,10 +25,14 @@ export class CountdownComponent implements OnInit {
     @Input() updateObservable: Observable<void>;
 
     dateObservable: Observable<string>;
+    hasPassedObservable: Observable<boolean>;
 
     ngOnInit(): void {
         this.dateObservable = this.updateObservable.pipe(
             map(() => this.humanizeDifference(new Date())),
+        );
+        this.hasPassedObservable = this.updateObservable.pipe(
+            map(() => isPast(this.date)),
         );
     }
 
