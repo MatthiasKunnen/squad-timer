@@ -1,23 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
     differenceInDays,
-    differenceInHours,
     differenceInMinutes,
-    differenceInMonths,
     differenceInSeconds,
-    differenceInYears,
     isPast,
     subDays,
-    subHours,
     subMinutes,
-    subMonths,
     subSeconds,
-    subYears,
 } from 'date-fns';
-import {EMPTY, fromEvent, Observable, timer} from 'rxjs';
-import {map, startWith, switchMap} from 'rxjs/operators';
-
-import {isNotUndefined} from '../utils/guards.util';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
     selector: 'app-countdown',
@@ -27,20 +19,15 @@ import {isNotUndefined} from '../utils/guards.util';
 export class CountdownComponent implements OnInit {
 
     @Input() date: Date;
+    /**
+     * Every time this observable emits, the countdown will be updated.
+     */
+    @Input() updateObservable: Observable<void>;
 
     dateObservable: Observable<string>;
 
     ngOnInit(): void {
-        this.dateObservable = fromEvent(document, 'visibilitychange').pipe(
-            startWith(null),
-            map(() => document.hidden),
-            switchMap(hidden => {
-                if (hidden) {
-                    return EMPTY;
-                }
-
-                return timer(0, 1000);
-            }),
+        this.dateObservable = this.updateObservable.pipe(
             map(() => this.humanizeDifference(new Date())),
         );
     }
@@ -48,29 +35,19 @@ export class CountdownComponent implements OnInit {
     humanizeDifference(diffWith: Date) {
         let date = this.date;
         const modifier = isPast(this.date) ? -1 : 1;
-        const parts: Array<[string, typeof differenceInDays, typeof subDays]> = [
-            ['year', differenceInYears, subYears],
-            ['month', differenceInMonths, subMonths],
-            ['day', differenceInDays, subDays],
-            ['hour', differenceInHours, subHours],
-            ['minute', differenceInMinutes, subMinutes],
-            ['second', differenceInSeconds, subSeconds],
+        const parts: Array<[typeof differenceInDays, typeof subDays]> = [
+            [differenceInMinutes, subMinutes],
+            [differenceInSeconds, subSeconds],
         ];
 
         const result = parts
-            .map(([name, diff, sub], i) => {
+            .map(([diff, sub]) => {
                 const difference = Math.abs(diff(date, diffWith));
-
-                if (difference === 0) {
-                    return;
-                }
-
                 date = sub(date, difference * modifier);
 
-                return `${difference} ${name}${difference === 1 ? '' : 's'}`;
+                return difference.toString().padStart(2, '0');
             })
-            .filter(isNotUndefined)
-            .join(', ');
+            .join(':');
 
         return `${modifier < 0 ? '-' : ''}${result}`;
     }

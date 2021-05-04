@@ -15,6 +15,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {AngularSvgIconModule} from 'angular-svg-icon';
 import {ToastrModule} from 'ngx-toastr';
 
 import {environment} from '../environments/environment';
@@ -51,6 +52,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         BrowserModule,
         FormsModule,
         HttpClientModule,
+        AngularSvgIconModule.forRoot(),
         MatButtonModule,
         MatIconModule,
         MatInputModule,

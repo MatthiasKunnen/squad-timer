@@ -1813,6 +1813,13 @@ angular-error-repository@^2.0.0:
   dependencies:
     "@angular/forms" ">2.0.0"
 
+angular-svg-icon@^11.2.0:
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/angular-svg-icon/-/angular-svg-icon-11.2.0.tgz#cda349cb55643781b7a42d622f0f6610921ead2a"
+  integrity sha512-5SWvZyRPRV88n6/b+5AqI580Aq3xmQ1dd1ucYCMDrj4afQzQwJv2V7pBFcF3qNYzVZyF5TLDF006tGxMHYAb2g==
+  dependencies:
+    tslib "^2.0.0"
+
 ansi-colors@4.1.1, ansi-colors@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"

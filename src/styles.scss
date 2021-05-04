@@ -85,3 +85,24 @@ form {
 .cdk-overlay-pane {
     max-width: 95vw !important;
 }
+
+@mixin squad-icon($border, $background) {
+    fill: $border;
+    stroke: $border;
+
+    .background {
+        fill: $background;
+        stroke: $background;
+    }
+}
+
+.squad-icon {
+
+    &.enemy {
+        @include squad-icon(#6a050c, #fc403d);
+    }
+
+    &.friendly {
+        @include squad-icon(#085a08, #3ad43a);
+    }
+}

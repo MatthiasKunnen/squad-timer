@@ -37,6 +37,7 @@
         "@types/common-tags": "^1.8.0",
         "@types/node": "^12.11.1",
         "angular-error-repository": "^2.0.0",
+        "angular-svg-icon": "^11.2.0",
         "argparse": "^1.0.0",
         "common-tags": "^1.8.0",
         "date-fns": "^2.16.1",

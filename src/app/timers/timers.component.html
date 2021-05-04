@@ -1,1 +1,22 @@
-<p>timer works!</p>
+<div class="units">
+    <button mat-button *ngFor="let unit of units" (click)="startTimer(unit, 'enemy')">
+        <svg-icon [src]="'/assets/squad/' + unit.code + '.svg'"
+                  [title]="unit.name"
+                  [attr.aria-label]="unit.name"
+                  svgClass="squad-icon enemy"></svg-icon>
+    </button>
+</div>
+<div class="timers">
+    <div class="timer mat-elevation-z1" *ngFor="let timer of timers; let i = index">
+        <svg-icon [src]="'/assets/squad/' + timer.unit.code + '.svg'"
+                  [title]="timer.unit.name"
+                  [attr.aria-label]="timer.unit.name"
+                  [svgClass]="['squad-icon', timer.side]"></svg-icon>
+        <app-countdown [date]="timer.endsOn" [updateObservable]="updateObservable"></app-countdown>
+        <div class="actions">
+            <button mat-icon-button (click)="removeTimer(i)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
