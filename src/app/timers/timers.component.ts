@@ -82,7 +82,7 @@ export class TimersComponent implements OnInit {
 
     addMinutesToTimer(index: number, minutes: number): void {
         const selectedTimer = this.timers[index];
-        selectedTimer.endsOn = addMinutes(selectedTimer.endsOn, minutes);
+        selectedTimer.spawnsOn = addMinutes(selectedTimer.spawnsOn, minutes);
         setTimeout(() => {
             // Immediately update the time. Needs to be run after change detection
             this.manualUpdateSubject.next();
@@ -98,18 +98,18 @@ export class TimersComponent implements OnInit {
 
     sortTimers(): void {
         this.timers = this.timers.sort((a, b) => {
-            return a.endsOn.getTime() - b.endsOn.getTime();
+            return a.spawnsOn.getTime() - b.spawnsOn.getTime();
         });
 
         this.store();
     }
 
     startTimer(unit: Unit, side: Timer['side']): void {
-        const endsOn = addMinutes(new Date(), unit.respawnTime);
-        const insertionIndex = this.timers.findIndex(item => isAfter(item.endsOn, endsOn));
+        const spawnsOn = addMinutes(new Date(), unit.respawnTime);
+        const insertionIndex = this.timers.findIndex(item => isAfter(item.spawnsOn, spawnsOn));
 
         const newTimer = Object.assign(new Timer(), {
-            endsOn,
+            spawnsOn,
             side,
             unit,
         });

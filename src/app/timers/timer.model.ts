@@ -17,10 +17,10 @@ export class Unit {
 export class Timer {
 
     @property()
-    endsOn: Date;
+    side: 'enemy' | 'friendly';
 
     @property()
-    side: 'enemy' | 'friendly';
+    spawnsOn: Date;
 
     @property()
     unit: Unit;

@@ -21,7 +21,7 @@
             <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, -1)">
                 <mat-icon>remove_circle_outline</mat-icon>
             </button>
-            <app-countdown [date]="timer.endsOn"
+            <app-countdown [date]="timer.spawnsOn"
                            [updateObservable]="updateObservable"></app-countdown>
             <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, 1)">
                 <mat-icon>add_circle_outline</mat-icon>
