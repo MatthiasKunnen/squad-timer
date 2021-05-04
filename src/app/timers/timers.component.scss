@@ -45,7 +45,12 @@
 }
 
 button.no-padding {
+    min-width: auto;
     padding: 1px 6px;
+
+    @media (max-width: 359px) {
+        padding: 1px 2px;
+    }
 }
 
 svg-icon {
