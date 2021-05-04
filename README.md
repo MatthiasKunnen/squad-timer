@@ -1,5 +1,9 @@
-Squad timer
+Squad Timer
 ================
+Squad Timer helps you keep track of vehicle respawn timers. Very helpful if you want to know if the enemy MBT has already respawned.
+
+Use: <https://squadtimer.herokuapp.com>.
+
 
 ## Development
 1. Run `git update-index --skip-worktree src/environments/environment.ts`  
