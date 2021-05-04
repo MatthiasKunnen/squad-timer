@@ -1,5 +1,5 @@
 {
-    "background_color": "#303030",
+    "background_color": "#363739",
     "display": "standalone",
     "icons": [
         {
@@ -63,9 +63,9 @@
             "type": "image/png"
         }
     ],
-    "name": "Squad timer",
+    "name": "Squad Timer",
     "scope": "./",
-    "short_name": "Squad timer",
+    "short_name": "Squad Timer",
     "start_url": "./",
-    "theme_color": "#1976d2"
+    "theme_color": "#ffc40b"
 }
