@@ -18,9 +18,12 @@
     z-index: 2;
 }
 
-::ng-deep .router-flex + * {
+.router-container {
     flex-grow: 1;
     overflow: auto;
+}
+
+::ng-deep .router-flex + * {
     @include container;
 }
 
