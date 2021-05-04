@@ -11,7 +11,7 @@
 </div>
 <div class="timers">
     <div class="timer mat-elevation-z1" *ngFor="let timer of timers; let i = index">
-        <button class="no-padding" mat-button (click)="changeSide(i)">
+        <button class="unit-icon no-padding" mat-button (click)="changeSide(i)">
             <svg-icon [src]="'/assets/squad/' + timer.unit.code + '.svg'"
                       [title]="timer.unit.name"
                       [attr.aria-label]="timer.unit.name"
