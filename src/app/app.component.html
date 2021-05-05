@@ -3,15 +3,15 @@
     <router-outlet class="router-flex"></router-outlet>
 </div>
 <mat-toolbar class="footer-navigation">
-    <button mat-button
-            routerLink="/"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact: true}">
+    <a mat-button
+       routerLink="/"
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>timer</mat-icon>
         <label>Timer</label>
-    </button>
-    <button mat-button routerLink="about" routerLinkActive="active">
+    </a>
+    <a mat-button routerLink="about" routerLinkActive="active">
         <mat-icon>info</mat-icon>
         <label>About</label>
-    </button>
+    </a>
 </mat-toolbar>
