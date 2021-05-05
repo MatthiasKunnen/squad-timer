@@ -197,7 +197,9 @@ export class TimersComponent implements OnDestroy, OnInit {
         const roomName = this.route.snapshot.paramMap.get('roomName');
         this.roomName = roomName;
         if (roomName !== null) {
-            this.roomUrl = `${window.location.host}/join/${roomName}`;
+            const roomUrl = new URL(window.location.href);
+            roomUrl.pathname = `/join/${roomName}`;
+            this.roomUrl = roomUrl.href;
             this.connectToSocket(socket => {
                 socket.next(assignStrict(new JoinRoomRequest(), {
                     name: roomName,
