@@ -44,6 +44,30 @@
     margin-top: 1em;
 }
 
+.share {
+    position: fixed;
+    right: 16px;
+    bottom: 28px;
+    z-index: 10;
+
+    &-mobile {
+        display: none;
+        bottom: 56px - 20px;
+
+        mat-icon {
+            @include mat-icon-size(16px);
+        }
+    }
+
+    @media (max-width: 479px) {
+        display: none;
+
+        &-mobile {
+            display: block;
+        }
+    }
+}
+
 button.no-padding {
     min-width: auto;
     padding: 1px 6px;

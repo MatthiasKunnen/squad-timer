@@ -15,6 +15,24 @@ overrides:
   -
     env:
       node: true
+    files:
+      - 'api/**/*.ts'
+      - 'shared/**/*.ts'
+    extends:
+      - '@matthiaskunnen/eslint-config-typescript-node'
+
+    parser: '@typescript-eslint/parser'
+
+    parserOptions:
+      project:
+        - tsconfig.lint.json
+      sourceType: module
+    rules:
+      no-console: off
+
+  -
+    env:
+      node: true
     extends:
       - '@matthiaskunnen/eslint-config-typescript'
     files:

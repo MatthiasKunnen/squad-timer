@@ -37,3 +37,38 @@
 <p *ngIf="timers.length === 0" class="timers-info text-center">
     Click on a vehicle when it is destroyed and a timer will be started.
 </p>
+<div *ngIf="roomName !== null && roomUrl !== null">
+    <button class="link"
+            [cdkCopyToClipboard]="roomUrl"
+            #roomUrlTooltip="matTooltip"
+            (mouseenter)="$event.stopImmediatePropagation()"
+            matTooltip="URL copied"
+            (click)="copyRoomUrl(roomUrlTooltip)">
+        {{roomName}}:
+    </button>
+    <span [class.text-error]="socketStatus === 'disconnected'"
+          [class.text-success]="socketStatus === 'connected'">
+        {{socketStatus}}
+    </span>
+    <button mat-icon-button
+            aria-label="Disconnect"
+            matTooltip="Disconnect"
+            title="Disconnect"
+            (click)="disconnect()">
+        <mat-icon>power_off</mat-icon>
+    </button>
+</div>
+<button mat-fab
+        class="share share-desktop"
+        aria-label="share"
+        *ngIf="roomName === null"
+        (click)="share()">
+    <mat-icon>share</mat-icon>
+</button>
+<button mat-mini-fab
+        class="share share-mobile"
+        aria-label="share"
+        *ngIf="roomName === null"
+        (click)="share()">
+    <mat-icon>share</mat-icon>
+</button>

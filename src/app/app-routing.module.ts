@@ -17,6 +17,10 @@ const routes: Routes = [
         component: AboutComponent,
     },
     {
+        path: 'join/:roomName',
+        component: TimersComponent,
+    },
+    {
         path: 'settings',
         component: SettingsComponent,
     },

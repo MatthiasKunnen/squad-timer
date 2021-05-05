@@ -86,6 +86,15 @@ http {
     # Must read the body in 5 seconds.
     client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
 
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
+
+    upstream websocket {
+        server 127.0.0.1:5050;
+    }
+
     server {
         listen <%= ENV["PORT"] %>;
         server_name _;
@@ -105,6 +114,14 @@ http {
             try_files $uri /index.html;
 ${headers}
             add_header Cache-Control "public, max-age=604800";
+        }
+
+        location /websocket {
+            proxy_pass http://websocket;
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header Host $host;
         }
 
         location = /index.html {

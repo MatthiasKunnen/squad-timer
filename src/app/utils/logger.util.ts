@@ -11,7 +11,7 @@ interface ErrorCodeDeterminator {
 export class Logger {
 
     static error(input: {
-        error: Error;
+        error?: Error;
         info?: any;
         message: string;
     } | string): void {
@@ -32,7 +32,7 @@ export class Logger {
         } else {
             captureException(input.error, {
                 extra: {
-                    message: input.message ?? input.error.message,
+                    message: input.message ?? input.error?.message,
                     ...input.info,
                 },
             });

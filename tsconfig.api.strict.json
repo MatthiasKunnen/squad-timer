@@ -1,0 +1,7 @@
+{
+    "extends": "./tsconfig.api.json",
+    "compilerOptions": {
+        "allowUnreachableCode": false,
+        "noUnusedLocals": true
+    }
+}

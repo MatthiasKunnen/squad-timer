@@ -1,3 +1,4 @@
+import {ClipboardModule} from '@angular/cdk/clipboard';
 import {registerLocaleData} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import locale from '@angular/common/locales/en-BE';
@@ -12,6 +13,7 @@ import {
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ServiceWorkerModule} from '@angular/service-worker';
@@ -55,9 +57,11 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         FormsModule,
         HttpClientModule,
         AngularSvgIconModule.forRoot(),
+        ClipboardModule,
         MatButtonModule,
         MatIconModule,
         MatInputModule,
+        MatTooltipModule,
         MatToolbarModule,
         ReactiveFormsModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.serviceWorkerEnabled}),

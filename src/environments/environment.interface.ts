@@ -10,4 +10,5 @@ export interface Environment {
         enabled: true;
     };
     serviceWorkerEnabled: boolean;
+    websocketUrl: string;
 }
