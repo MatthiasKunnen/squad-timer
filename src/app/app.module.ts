@@ -12,6 +12,7 @@ import {
 } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
@@ -61,6 +62,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         MatButtonModule,
         MatIconModule,
         MatInputModule,
+        MatProgressSpinnerModule,
         MatToolbarModule,
         MatTooltipModule,
         ReactiveFormsModule,

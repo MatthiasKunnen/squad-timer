@@ -50,6 +50,14 @@
     bottom: 28px;
     z-index: 10;
 
+    mat-spinner {
+        display: inline-block;
+
+        ::ng-deep circle {
+            stroke: white;
+        }
+    }
+
     &-mobile {
         display: none;
         bottom: 56px - 20px;

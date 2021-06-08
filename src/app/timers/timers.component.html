@@ -63,12 +63,14 @@
         aria-label="share"
         *ngIf="roomName === null"
         (click)="share()">
-    <mat-icon>share</mat-icon>
+    <mat-icon *ngIf="socket === null">share</mat-icon>
+    <mat-spinner *ngIf="socket !== null" [diameter]="24"></mat-spinner>
 </button>
 <button mat-mini-fab
         class="share share-mobile"
         aria-label="share"
         *ngIf="roomName === null"
         (click)="share()">
-    <mat-icon>share</mat-icon>
+    <mat-icon *ngIf="socket === null">share</mat-icon>
+    <mat-spinner *ngIf="socket !== null" [diameter]="16"></mat-spinner>
 </button>
