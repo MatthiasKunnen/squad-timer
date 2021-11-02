@@ -69,7 +69,7 @@ events {
 
 http {
     gzip on;
-    gzip_comp_level 2;
+    gzip_comp_level 6;
     gzip_min_length 512;
     gzip_proxied any;
 
