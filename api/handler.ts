@@ -66,6 +66,12 @@ export class WebsocketHandler {
                 });
             });
         });
+
+        setInterval(() => {
+            wss.clients.forEach(ws => {
+                ws.ping();
+            });
+        }, 50000);
     }
 
     createRoom(info: ActionInfo<CreateRoomRequest>): CreateRoomResponse {
