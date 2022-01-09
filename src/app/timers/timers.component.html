@@ -60,7 +60,8 @@
 </div>
 <button mat-fab
         class="create-room create-room-desktop"
-        aria-label="Create room"
+        matTooltip="Share your timers"
+        aria-label="Share your timers"
         *ngIf="roomName === null"
         (click)="share()">
     <mat-icon *ngIf="socket === null">share</mat-icon>
@@ -68,7 +69,8 @@
 </button>
 <button mat-mini-fab
         class="create-room create-room-mobile"
-        aria-label="Create room"
+        matTooltip="Share your timers"
+        aria-label="Share your timers"
         *ngIf="roomName === null"
         (click)="share()">
     <mat-icon *ngIf="socket === null">share</mat-icon>
