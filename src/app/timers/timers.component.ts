@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatTooltip} from '@angular/material/tooltip';
 import {ActivatedRoute, Router} from '@angular/router';
-import {addMinutes, isAfter} from 'date-fns';
+import {addMinutes, addSeconds, isAfter, isFuture} from 'date-fns';
 import {Decoverto} from 'decoverto';
 import {
     EMPTY,
@@ -239,6 +239,17 @@ export class TimersComponent implements OnDestroy, OnInit {
             this.manualUpdateSubject,
         ).pipe(
             mapTo(undefined),
+            tap(() => {
+                // Remove old timers
+                const trimmedTimers = this.timers.filter(t => {
+                    return isFuture(addSeconds(addMinutes(t.spawnsOn, 30), 1));
+                });
+
+                if (trimmedTimers.length !== this.timers.length) {
+                    this.timers = trimmedTimers;
+                    this.storeTimers();
+                }
+            }),
             shareReplay(1),
         );
     }
