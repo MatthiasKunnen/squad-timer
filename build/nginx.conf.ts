@@ -72,7 +72,7 @@ http {
     gzip_comp_level 6;
     gzip_min_length 512;
     gzip_proxied any;
-    gzip_types text/css text/html text/plain application/javascript image/svg+xml;
+    gzip_types text/css text/plain application/javascript image/svg+xml;
 
     server_tokens off;
 
