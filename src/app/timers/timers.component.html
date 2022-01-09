@@ -59,16 +59,16 @@
     </button>
 </div>
 <button mat-fab
-        class="share share-desktop"
-        aria-label="share"
+        class="create-room create-room-desktop"
+        aria-label="Create room"
         *ngIf="roomName === null"
         (click)="share()">
     <mat-icon *ngIf="socket === null">share</mat-icon>
     <mat-spinner *ngIf="socket !== null" [diameter]="24"></mat-spinner>
 </button>
 <button mat-mini-fab
-        class="share share-mobile"
-        aria-label="share"
+        class="create-room create-room-mobile"
+        aria-label="Create room"
         *ngIf="roomName === null"
         (click)="share()">
     <mat-icon *ngIf="socket === null">share</mat-icon>
