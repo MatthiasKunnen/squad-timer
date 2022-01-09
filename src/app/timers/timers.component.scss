@@ -1,5 +1,6 @@
-@import 'mixins';
-@import 'variables';
+@use '@angular/material' as mat;
+@use 'mixins';
+@use 'variables';
 
 .units {
     text-align: center;
@@ -16,7 +17,7 @@
         grid-template-columns: 1fr 4fr 1fr;
         transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
         border-radius: 4px;
-        background: mat-color($background, card);
+        background: mat.get-color-from-palette(variables.$background, card);
         font-size: 2em;
 
         .unit-icon {
@@ -24,13 +25,13 @@
         }
 
         .time-container {
-            @include gap(2px);
+            @include mixins.gap(2px);
             display: flex;
             align-items: center;
             justify-self: center;
 
             .time-action mat-icon {
-                @include mat-icon-size(1.5em);
+                @include mixins.mat-icon-size(1.5em);
             }
         }
 
@@ -63,7 +64,7 @@
         bottom: 56px - 20px;
 
         mat-icon {
-            @include mat-icon-size(16px);
+            @include mixins.mat-icon-size(16px);
         }
     }
 

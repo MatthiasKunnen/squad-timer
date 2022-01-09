@@ -1,8 +1,9 @@
-@import 'mixins';
-@import 'normalize';
-@import 'material-theme';
-@import '~ngx-toastr/toastr';
-@import 'variables';
+@use '@angular/material' as mat;
+@use 'mixins';
+@use 'variables';
+@use 'normalize';
+@use 'material-theme';
+@use '~ngx-toastr/toastr';
 
 body {
     overflow-x: hidden;
@@ -15,15 +16,15 @@ body {
     }
 
     &-error {
-        color: mat-color($mat-red, 500) !important;
+        color: mat.get-color-from-palette(mat.$red-palette, 500) !important;
     }
 
     &-success {
-        color: mat-color($mat-green, 500) !important;
+        color: mat.get-color-from-palette(mat.$green-palette, 500) !important;
     }
 
     &-warning {
-        color: $warning !important;
+        color: variables.$warning !important;
     }
 }
 
@@ -103,7 +104,7 @@ form {
 .squad-icon {
 
     &.enemy {
-        @include squad-icon(#6a050c, $enemy-red);
+        @include squad-icon(#6a050c, variables.$enemy-red);
     }
 
     &.friendly {
