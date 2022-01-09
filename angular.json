@@ -12,7 +12,6 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "aot": true,
                         "outputPath": "dist/public",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -34,7 +33,13 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "buildOptimizer": false,
+                        "extractLicenses": false,
+                        "namedChunks": true,
+                        "optimization": false,
+                        "scripts": [],
+                        "sourceMap": true,
+                        "vendorChunk": true
                     },
                     "configurations": {
                         "production": {
@@ -44,14 +49,12 @@
                                     "maximumWarning": "6kb"
                                 }
                             ],
+                            "buildOptimizer": true,
+                            "extractLicenses": true,
+                            "namedChunks": false,
                             "optimization": true,
                             "outputHashing": "all",
-                            "sourceMap": true,
-                            "namedChunks": false,
-                            "aot": true,
-                            "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": true,
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -61,7 +64,8 @@
                             "ngswConfigPath": "ngsw-config.json",
                             "serviceWorker": true
                         }
-                    }
+                    },
+                    "defaultConfiguration": ""
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
@@ -82,18 +86,6 @@
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
                         "browserTarget": "squad-timer:build"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "src/tsconfig.app.json",
-                            "src/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
                     }
                 }
             }
@@ -117,7 +109,6 @@
             "skipTests": true
         },
         "@schematics/angular:module": {
-            "skipTests": true
         },
         "@schematics/angular:pipe": {
             "skipTests": true

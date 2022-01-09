@@ -1,5 +1,5 @@
-@import 'variables';
+@use 'variables';
 
 .has-passed {
-    color: $enemy-red;
+    color: variables.$enemy-red;
 }

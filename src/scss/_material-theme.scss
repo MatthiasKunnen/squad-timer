@@ -1,5 +1,6 @@
-@import 'variables';
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
+@use 'variables';
+@use 'typography';
 
-@include mat-core($typography);
-@include angular-material-theme($theme);
+@include mat.core(typography.$typography);
+@include mat.all-component-themes(variables.$theme);

@@ -266,7 +266,7 @@ export class TimersComponent implements OnDestroy, OnInit {
             deserializer: event => {
                 try {
                     return responseTypeHandler.rawToInstance(event.data);
-                } catch (error) {
+                } catch (error: any) {
                     Logger.error({
                         error,
                         message: 'Could not deserialize websocket message',

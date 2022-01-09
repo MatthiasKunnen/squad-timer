@@ -1,8 +1,8 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 
 $font-family: roboto, sans-serif;
 
-$typography: mat-typography-config(
+$typography: mat.define-typography-config(
     $font-family: $font-family,
-    $input: mat-typography-level(16px, 1.125, 400),
+    $input: mat.define-typography-level(16px, 1.125, 400),
 );
