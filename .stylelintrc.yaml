@@ -1,3 +1,5 @@
+extends:
+  - stylelint-config-standard-scss
 plugins:
   - stylelint-order
 rules:
@@ -111,12 +113,15 @@ rules:
   media-query-list-comma-newline-after: always-multi-line
   media-query-list-comma-space-after: always-single-line
   media-query-list-comma-space-before: never
+  no-descending-specificity: null
   no-duplicate-selectors: true
+  no-empty-source: null
   no-eol-whitespace: true
   no-extra-semicolons: true
   no-invalid-double-slash-comments: true
   no-missing-end-of-source-newline: true
   number-leading-zero: always
+  number-max-precision: null
   number-no-trailing-zeros: true
   order/properties-order:
     - display
@@ -308,6 +313,7 @@ rules:
     -
       ignore:
         - after-comment
+  scss/dollar-variable-empty-line-before: null
   selector-attribute-brackets-space-inside: never
   selector-attribute-operator-space-after: never
   selector-attribute-operator-space-before: never
@@ -324,6 +330,10 @@ rules:
   selector-pseudo-class-parentheses-space-inside: never
   selector-pseudo-element-case: lower
   selector-pseudo-element-colon-notation: double
+  selector-pseudo-element-no-unknown:
+    - true
+    - ignorePseudoElements:
+        - 'ng-deep'
   selector-type-case: lower
   shorthand-property-no-redundant-values: true
   string-no-newline: true

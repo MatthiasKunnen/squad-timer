@@ -4,7 +4,7 @@ function mapFilenames(filenames) {
 
 module.exports = {
     '**/*.scss': (filenames) => [
-        `stylelint --syntax scss --fix ${mapFilenames(filenames)}`,
+        `stylelint --fix ${mapFilenames(filenames)}`,
     ],
     '**/*.ts': (filenames) => [
         `eslint --fix --cache ${mapFilenames(filenames)}`,

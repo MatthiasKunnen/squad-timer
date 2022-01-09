@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 
 $brand-palette: (
     50 : #fff8e2,
@@ -40,9 +41,9 @@ $primary: mat.get-color-from-palette($palette-primary);
 $warn: mat.get-color-from-palette($palette-warn);
 
 $theme: mat.define-dark-theme($palette-primary, $palette-primary, $palette-warn);
-$background: map-get($theme, background);
-$foreground: map-get($theme, foreground);
-$is-dark-theme: map-get($theme, is-dark);
+$background: map.get($theme, background);
+$foreground: map.get($theme, foreground);
+$is-dark-theme: map.get($theme, is-dark);
 $label-color: mat.get-color-from-palette($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
 $warning: #ffc71e;
 
