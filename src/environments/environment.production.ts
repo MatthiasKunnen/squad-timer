@@ -8,7 +8,7 @@ export const environment: Environment = {
         enabled: false,
     },
     serviceWorkerEnabled: true,
-    websocketUrl: 'wss://squadtimer.herokuapp.com/websocket',
+    websocketUrl: 'wss://squadtimer.todo/websocket',
 };
 
 applyGeneratedEnvironment(environment);

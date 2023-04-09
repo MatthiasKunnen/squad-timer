@@ -8,7 +8,6 @@
         "compile:ts": "run-p compile:ts:*",
         "compile:ts:app": "tsc -p tsconfig.app.strict.json",
         "compile:ts:api": "tsc -p tsconfig.api.strict.json",
-        "heroku-postbuild": "yarn run build:production && mkdir config && mv dist/nginx.conf config/nginx.conf.erb",
         "lint": "npm-run-all -cp \"lint:css {@}\" \"lint:ts {@}\" -- ",
         "lint:css": "stylelint \"src/**/*.scss\"",
         "lint:ts": "eslint \"api/**/*.ts\" \"shared/**/*.ts\" \"src/**/*.ts\" \"build/**/*.ts\"",

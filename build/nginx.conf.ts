@@ -58,13 +58,10 @@ const headers = environment.production
 
 process.stdout.write(`
 daemon off;
-# Heroku dynos have at least 4 cores.
-worker_processes <%= ENV['NGINX_WORKERS'] || 4 %>;
 
 events {
     use epoll;
     accept_mutex on;
-    worker_connections <%= ENV['NGINX_WORKER_CONNECTIONS'] || 1024 %>;
 }
 
 http {
