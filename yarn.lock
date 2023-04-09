@@ -2920,10 +2920,10 @@ decompress-response@^3.3.0:
   dependencies:
     mimic-response "^1.0.0"
 
-decoverto@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/decoverto/-/decoverto-1.0.0.tgz#27e3e2b600e9a7a73d4b03af168aeacade6b6f26"
-  integrity sha512-5+vcOpGRcO9RpvbJ/ctEUCPjo3fkwQcjcrVhHCYyzvI3VwPlNvpby48iBSxuyd52GdsGFg6hBI49BcnE06uo6w==
+decoverto@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/decoverto/-/decoverto-1.0.4.tgz#0c5b1b00c24d881e507badb033367ad62d088495"
+  integrity sha512-w3OpJ8NQgnmxzQcJxJw25oNoPnKnfSQ9APYQrZ2mIBF35shPgQvroQ5x+XejQPbncfVn6PjnTLR7rS6bdiciFA==
   dependencies:
     tslib "^2.0.1"
 
