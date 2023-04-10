@@ -90,7 +90,7 @@ http {
         '' close;
     }
 
-    upstream websocket {
+    upstream api {
         server 127.0.0.1:5050;
     }
 
@@ -115,8 +115,8 @@ ${headers}
             add_header Cache-Control "public, max-age=604800";
         }
 
-        location /websocket {
-            proxy_pass http://websocket;
+        location /api {
+            proxy_pass http://api;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
