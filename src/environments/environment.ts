@@ -11,7 +11,7 @@ export const environment: Environment = {
         enabled: false,
     },
     serviceWorkerEnabled: false,
-    websocketUrl: 'ws://localhost:5050/api/websocket',
+    websocketUrl: 'ws://localhost:4250/api/websocket',
 };
 
 /*

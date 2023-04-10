@@ -71,7 +71,8 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
                         "browserTarget": "squad-timer:build",
-                        "port": 4250
+                        "port": 4250,
+                        "proxyConfig": "src/proxy.conf.json"
                     },
                     "configurations": {
                         "local": {
