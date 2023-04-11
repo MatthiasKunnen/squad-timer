@@ -9,7 +9,7 @@
                 "files": [
                     "/favicon.ico",
                     "/index.html",
-                    "/manifest.webmanifest",
+                    "/site.webmanifest",
                     "/*.css",
                     "/*.js"
                 ]
