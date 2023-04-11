@@ -28,10 +28,11 @@ export class WebsocketHandler {
     private readonly requestTypeHandler = decoverto.type(WsRequest);
     private readonly responseTypeHandler = decoverto.type(WsResponse);
     private readonly rooms = new Map<string, Room>();
+    private readonly wss: WebSocket.Server;
 
     constructor() {
         this.server = createServer();
-        const wss = new WebSocket.Server({
+        this.wss = new WebSocket.Server({
             server: this.server,
         });
 
@@ -41,7 +42,7 @@ export class WebsocketHandler {
             ['UpdateRoomTimers', this.updateRoomTimers.bind(this)],
         ]);
 
-        wss.on('connection', ws => {
+        this.wss.on('connection', ws => {
             ws.on('message', this.createMessageListener(message => {
                 const action = actionMap.get(message.type);
                 if (action === undefined) {
@@ -68,10 +69,19 @@ export class WebsocketHandler {
         });
 
         setInterval(() => {
-            wss.clients.forEach(ws => {
+            this.wss.clients.forEach(ws => {
                 ws.ping();
             });
         }, 50000);
+    }
+
+    close() {
+        this.wss.close(); // Stop accepting new connections
+        this.wss.clients.forEach(client => {
+            // Close existing connections
+            client.close();
+        });
+        this.server.close(); // Close the HTTP server
     }
 
     createRoom(info: ActionInfo<CreateRoomRequest>): CreateRoomResponse {
