@@ -42,10 +42,10 @@ if (environment.sentry.enabled) {
 
 const headers = environment.production
     ? `\
-    add_header Referrer-Policy "same-origin";
-    add_header Strict-Transport-Security "max-age=63072000";
-    add_header X-Content-Type-Options "nosniff";
-    add_header X-XSS-Protection "1; mode=block";
+            add_header Referrer-Policy "same-origin";
+            add_header Strict-Transport-Security "max-age=63072000";
+            add_header X-Content-Type-Options "nosniff";
+            add_header X-XSS-Protection "1; mode=block";
     `.trimRight()
     : '';
 
