@@ -40,15 +40,8 @@ if (environment.sentry.enabled) {
     reportUri = `https://sentry.io/api/${sentryProjectId}/security/?${reportUriParams}`;
 }
 
-const expectCertificateTransparency = [
-    'max-age=86400',
-    reportUri === null ? null : `report-uri=\\"${reportUri}\\"`,
-    'enforce',
-];
-
 const headers = environment.production
     ? `\
-    add_header Expect-CT "${expectCertificateTransparency.filter(p => p !== null).join(', ')}";
     add_header Referrer-Policy "same-origin";
     add_header Strict-Transport-Security "max-age=63072000";
     add_header X-Content-Type-Options "nosniff";
