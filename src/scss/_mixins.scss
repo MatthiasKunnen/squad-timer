@@ -28,9 +28,9 @@
     }
 }
 
-@mixin mat-icon-size($px) {
-    width: $px;
-    height: $px;
-    font-size: $px;
-    line-height: $px;
+@mixin mat-icon-size($size) {
+    width: 1em;
+    height: 1em;
+    font-size: $size;
+    line-height: 1;
 }

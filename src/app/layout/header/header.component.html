@@ -1,18 +1,31 @@
 <mat-toolbar>
-    <a mat-button routerLink="/" class="logo">
+    <a mat-button routerLink="/" class="logo button-image-content">
         <img src="/assets/logo.png" alt="Logo banner" width="340" height="150">
     </a>
     <span class="flex-spacer"></span>
     <a mat-button
-       class="github-link"
+       class="github-link-text-button"
        href="https://github.com/MatthiasKunnen/squad-timer"
        rel="noopener nofollow"
        aria-label="GitHub repository"
        title="View on GitHub">
         <img src="/assets/icons/github-circle-transparent.svg"
+             matButtonIcon
              class="github-logo"
              alt="GitHub logo"
              aria-hidden="true">
-        <span class="github-label">GitHub</span>
+        GitHub
+    </a>
+    <a
+        mat-icon-button
+        class="github-link-icon-button"
+        href="https://github.com/MatthiasKunnen/squad-timer"
+        rel="noopener nofollow"
+        aria-label="GitHub repository">
+        <img src="/assets/icons/github-circle-transparent.svg"
+            matButtonIcon
+            class="github-logo"
+            alt="GitHub logo"
+            aria-hidden="true">
     </a>
 </mat-toolbar>

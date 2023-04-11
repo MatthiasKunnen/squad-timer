@@ -1,0 +1,79 @@
+@use 'mixins';
+
+.mdc-button__label {
+    // https://github.com/angular/components/issues/8842
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-scale {
+
+    &.mdc-button {
+        height: auto;
+    }
+
+    &.mdc-icon-button {
+        width: auto;
+        height: auto;
+    }
+}
+
+.button-image-content {
+
+    &.mdc-button {
+        // Required for height 100% to work and prevent overflow when the content of the button
+        // is an image.
+        align-items: stretch;
+    }
+}
+
+.mdc-icon-button.mat-mdc-icon-button {
+    // Make mat-icon-button scalable using font-size
+    --padding: min(1em / 2, 24px);
+    --size: 1em + var(--padding) * 2;
+    width: calc(var(--size));
+    height: calc(var(--size));
+    padding: var(--padding);
+
+    .mat-icon {
+        width: 1em;
+        height: 1em;
+        font-size: 1em;
+        line-height: 1em;
+    }
+
+    .mat-mdc-button-touch-target {
+        // Touch target should be at least 48px, see
+        // https://m2.material.io/develop/web/supporting/touch-target
+        width: max(var(--size), 48px);
+        height: max(var(--size), 48px);
+    }
+}
+
+.mdc-button > {
+    // Adds margin between button icon and label for text button.
+    // Spec: https://m2.material.io/components/buttons#specs
+
+    [matButtonIcon]:not([iconPositionEnd]) {
+        margin-right: 8px;
+    }
+
+    [matButtonIcon][iconPositionEnd] {
+        margin-left: 8px;
+    }
+}
+
+.mdc-button:not([mat-button]) > {
+    // Decrease space between button icon edge of button. Not correctly done by Angular.
+    // Spec: https://m2.material.io/components/buttons#specs
+    // Demo: https://material-components.github.io/material-components-web-catalog/#/component/button?type=unelevated
+
+    [matButtonIcon]:not([iconPositionEnd]) {
+        margin-left: -4px;
+    }
+
+    [matButtonIcon][iconPositionEnd] {
+        margin-right: -4px;
+    }
+}

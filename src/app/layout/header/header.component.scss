@@ -8,20 +8,17 @@
     }
 }
 
-.github-link {
-
-    .github-logo {
-        margin: 0 8px 3px 0;
-    }
+.github-link-icon-button {
+    display: none;
 
     @media (max-width: 719px) {
+        display: block;
+    }
+}
 
-        .github-logo {
-            margin: 0 0 3px;
-        }
+.github-link-text-button {
 
-        .github-label {
-            display: none;
-        }
+    @media (max-width: 719px) {
+        display: none;
     }
 }

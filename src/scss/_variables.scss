@@ -1,6 +1,12 @@
 @use '@angular/material' as mat;
 @use 'sass:map';
 
+$font-family: roboto, sans-serif;
+
+$typography: mat.define-typography-config(
+    $font-family: $font-family,
+);
+
 $brand-palette: (
     50 : #fff8e2,
     100 : #ffedb6,
@@ -40,7 +46,16 @@ $palette-warn: mat.define-palette(mat.$red-palette);
 $primary: mat.get-color-from-palette($palette-primary);
 $warn: mat.get-color-from-palette($palette-warn);
 
-$theme: mat.define-dark-theme($palette-primary, $palette-primary, $palette-warn);
+$theme: mat.define-dark-theme(
+    (
+        color: (
+            primary: $palette-primary,
+            accent: $palette-primary,
+            warn: $palette-warn,
+        ),
+        typography: $typography,
+    )
+);
 $background: map.get($theme, background);
 $foreground: map.get($theme, foreground);
 $is-dark-theme: map.get($theme, is-dark);

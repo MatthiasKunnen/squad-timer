@@ -1,0 +1,7 @@
+@use '@angular/material' as mat;
+@use '../variables';
+
+@include mat.core;
+@include mat.all-component-themes(variables.$theme);
+
+@include mat.typography-hierarchy(variables.$typography);

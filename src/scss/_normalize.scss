@@ -1,5 +1,3 @@
-@use 'typography';
-
 *,
 *::before,
 *::after {
@@ -13,7 +11,7 @@
     vertical-align: inherit;
 }
 
-a,
+:where(a,
 abbr,
 acronym,
 address,
@@ -93,12 +91,11 @@ tt,
 u,
 ul,
 var,
-video {
+video) {
     margin: 0;
     padding: 0;
     border: 0;
     font: inherit;
-    font-size: 100%;
     vertical-align: baseline;
 }
 

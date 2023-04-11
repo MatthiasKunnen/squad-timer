@@ -1,9 +1,9 @@
+@use 'normalize';
 @use '@angular/material' as mat;
 @use 'mixins';
 @use 'variables';
-@use 'normalize';
-@use 'material-theme';
-@use '~ngx-toastr/toastr';
+@use 'material';
+@use 'ngx-toastr/toastr';
 
 body {
     overflow-x: hidden;

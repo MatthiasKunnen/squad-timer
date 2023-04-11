@@ -4,7 +4,8 @@
     "angularCompilerOptions": {
         "fullTemplateTypeCheck": true,
         "strictInjectionParameters": true,
-        "strictTemplates": true
+        "strictTemplates": true,
+        "target": "ES2022",
     },
     "compilerOptions": {
         "outDir": "./out-tsc/app"
