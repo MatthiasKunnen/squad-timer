@@ -138,7 +138,20 @@ export class WebsocketHandler {
                 return;
             }
 
-            const message = JSON.parse(messageData);
+            let message: string;
+
+            try {
+                message = JSON.parse(messageData);
+            } catch (error) {
+                console.error({
+                    message: 'Failed to parse incoming message as JSON',
+                    error,
+                    info: {
+                        messageData,
+                    },
+                });
+                return;
+            }
 
             try {
                 const request = this.requestTypeHandler.plainToInstance(message);
