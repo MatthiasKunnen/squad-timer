@@ -132,16 +132,16 @@ export class WebsocketHandler {
 
     private createMessageListener(
         listener: (message: WsRequest) => void,
-    ): (data: WebSocket.Data) => void {
-        return messageData => {
-            if (typeof messageData !== 'string') {
+    ): (data: WebSocket.Data, isBinary: boolean) => void {
+        return (messageData, isBinary) => {
+            if (isBinary) {
                 return;
             }
 
             let message: string;
 
             try {
-                message = JSON.parse(messageData);
+                message = JSON.parse(messageData.toString());
             } catch (error) {
                 console.error({
                     message: 'Failed to parse incoming message as JSON',
