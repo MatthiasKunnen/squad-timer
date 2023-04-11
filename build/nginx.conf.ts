@@ -40,6 +40,7 @@ if (environment.sentry.enabled) {
     reportUri = `https://sentry.io/api/${sentryProjectId}/security/?${reportUriParams}`;
 }
 
+// language=Nginx Configuration
 const headers = environment.production
     ? `\
             add_header Referrer-Policy "same-origin";
@@ -49,6 +50,7 @@ const headers = environment.production
     `.trimRight()
     : '';
 
+// language=Nginx Configuration
 process.stdout.write(`
 daemon off;
 
