@@ -1,12 +1,16 @@
 <div class="units">
-    <button class="no-padding button-image-content button-scale"
-            mat-button
-            *ngFor="let unit of units"
-            (click)="startTimer(unit, 'enemy')">
-        <svg-icon [src]="'/assets/squad/' + unit.code + '.svg'"
-                  [title]="unit.name"
-                  [attr.aria-label]="unit.name"
-                  svgClass="squad-icon enemy"></svg-icon>
+    <button
+        class="no-padding button-image-content button-scale"
+        mat-button
+        [attr.aria-label]="'Add ' + unit.name"
+        [matTooltip]="'Add ' + unit.name"
+        *ngFor="let unit of units"
+        (click)="startTimer(unit, 'enemy')"
+    >
+        <svg-icon
+            [src]="'/assets/squad/' + unit.code + '.svg'"
+            aria-hidden="true"
+            svgClass="squad-icon enemy"></svg-icon>
     </button>
 </div>
 <div class="timers">
@@ -14,24 +18,43 @@
         <button
             class="unit-icon no-padding button-image-content button-scale"
             mat-button
-            (click)="changeSide(i)">
+            [attr.aria-label]="'Change side of ' + timer.unit.name + '. Currently ' + timer.side"
+            [matTooltip]="'Change side of ' + timer.unit.name"
+            (click)="changeSide(i)"
+        >
             <svg-icon [src]="'/assets/squad/' + timer.unit.code + '.svg'"
-                      [title]="timer.unit.name"
-                      [attr.aria-label]="timer.unit.name"
+                      aria-hidden="true"
                       [svgClass]="['squad-icon', timer.side]"></svg-icon>
         </button>
         <div class="time-container">
-            <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, -1)">
+            <button
+                class="time-action"
+                mat-icon-button
+                aria-label="Subtract one minute"
+                matTooltip="Subtract one minute"
+                (click)="addMinutesToTimer(i, -1)"
+            >
                 <mat-icon>remove_circle_outline</mat-icon>
             </button>
             <app-countdown [date]="timer.spawnsOn"
                            [updateObservable]="updateObservable"></app-countdown>
-            <button class="time-action" mat-icon-button (click)="addMinutesToTimer(i, 1)">
+            <button
+                class="time-action"
+                mat-icon-button
+                aria-label="Add one minute"
+                matTooltip="Add one minute"
+                (click)="addMinutesToTimer(i, 1)"
+            >
                 <mat-icon>add_circle_outline</mat-icon>
             </button>
         </div>
         <div class="actions">
-            <button mat-icon-button (click)="removeTimer(i)">
+            <button
+                mat-icon-button
+                aria-label="Delete timer"
+                matTooltip="Delete timer"
+                (click)="removeTimer(i)"
+            >
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
@@ -56,7 +79,6 @@
     <button mat-icon-button
             aria-label="Disconnect"
             matTooltip="Disconnect"
-            title="Disconnect"
             (click)="disconnect()">
         <mat-icon>power_off</mat-icon>
     </button>
