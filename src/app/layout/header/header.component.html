@@ -1,5 +1,10 @@
 <mat-toolbar>
-    <a mat-button routerLink="/" class="logo button-image-content" aria-label="Go to home">
+    <a
+        mat-button
+        routerLink="/"
+        class="logo button-image-content"
+        matTooltip="Go to home"
+        aria-label="Go to home">
         <img src="/assets/logo.png" alt="" width="340" height="150">
     </a>
     <span class="flex-spacer"></span>
@@ -9,7 +14,7 @@
         href="https://github.com/MatthiasKunnen/squad-timer"
         rel="noopener nofollow"
         aria-label="GitHub repository"
-        title="View on GitHub">
+        matTooltip="View on GitHub">
         <img
             src="/assets/icons/github-circle-transparent.svg"
             matButtonIcon
@@ -23,7 +28,8 @@
         class="github-link-icon-button"
         href="https://github.com/MatthiasKunnen/squad-timer"
         rel="noopener nofollow"
-        aria-label="GitHub repository">
+        aria-label="GitHub repository"
+        matTooltip="View on GitHub">
         <img
             src="/assets/icons/github-circle-transparent.svg"
             matButtonIcon
