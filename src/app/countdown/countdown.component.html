@@ -1,5 +1,5 @@
 <time [attr.datetime]="date.toISOString()"
       [class.has-passed]="hasPassedObservable | async"
-      [title]="date.toISOString()">
+      [matTooltip]="(date | date:'HH:mm:ss') ?? date.toISOString()">
     {{dateObservable | async}}
 </time>
