@@ -25,7 +25,7 @@
         }
 
         .time-container {
-            @include mixins.gap(2px);
+            gap: 2px;
             display: flex;
             align-items: center;
             justify-self: center;

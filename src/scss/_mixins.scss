@@ -10,24 +10,6 @@
     }
 }
 
-@mixin gap($gap) {
-    margin: -$gap;
-
-    > * {
-        margin: $gap;
-    }
-}
-
-@mixin gap-horizontal($gap) {
-    margin-right: -$gap;
-    margin-left: -$gap;
-
-    > * {
-        margin-right: $gap;
-        margin-left: $gap;
-    }
-}
-
 @mixin mat-icon-size($size) {
     width: 1em;
     height: 1em;
