@@ -169,7 +169,7 @@ small {
 }
 
 // SVGs fallback to the current text color
-svg:not([fill]) {
+:where(svg:not([fill])) {
     fill: currentColor;
 }
 
