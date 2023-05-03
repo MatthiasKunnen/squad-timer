@@ -62,7 +62,6 @@
     "devDependencies": {
         "@matthiaskunnen/eslint-config-angular": "^3.0.0",
         "@matthiaskunnen/eslint-config-typescript-node": "^3.0.0",
-        "codelyzer": "^6.0.0",
         "husky": "^1.3.1",
         "lint-staged": "^10.2.2",
         "nodemon": "^2.0.22",
