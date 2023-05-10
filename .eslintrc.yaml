@@ -27,7 +27,6 @@ overrides:
     rules:
       '@typescript-eslint/no-base-to-string': off
       '@typescript-eslint/no-invalid-void-type': off
-      '@typescript-eslint/require-await': off
       no-console: off
 
   -

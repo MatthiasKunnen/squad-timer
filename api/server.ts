@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import {WebsocketHandler} from './handler';
 import {onShutdown} from './utils/process.util';
 
+// eslint-disable-next-line @typescript-eslint/require-await
 (async () => {
     const wsHandler = new WebsocketHandler();
 
