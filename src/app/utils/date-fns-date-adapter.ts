@@ -130,9 +130,9 @@ export class DateFnsDateAdapter extends DateAdapter<Date> {
     }
 
     parse(value: any, parseFormats: Array<string> | string): Date | null {
-        parseFormats = typeof parseFormats === 'string' ? [parseFormats] : parseFormats;
+        const formats = typeof parseFormats === 'string' ? [parseFormats] : parseFormats;
 
-        for (const parseFormat of parseFormats) {
+        for (const parseFormat of formats) {
             const parsed = parse(value, parseFormat, new Date(), {
                 locale: this.locale,
             });

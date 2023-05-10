@@ -6,8 +6,9 @@
  */
 export function shuffle<T>(array: Array<T>, stopAfter = Number.MAX_SAFE_INTEGER): Array<T> {
     let i = array.length;
+    let remaining = stopAfter;
 
-    while (i > 1 && stopAfter-- > 0) {
+    while (i > 1 && remaining-- > 0) {
         const r = Math.floor(Math.random() * i--);
         [array[i], array[r]] = [array[r], array[i]];
     }

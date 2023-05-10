@@ -7,12 +7,10 @@ import {Logger} from '../../utils/logger.util';
 @Injectable()
 export class CustomErrorHandler implements ErrorHandler {
 
-    extractError(error: any) {
+    extractError(errorInput: any) {
         // Try to unwrap zone.js error.
         // https://github.com/angular/angular/blob/master/packages/core/src/util/errors.ts
-        if (error?.ngOriginalError != null) {
-            error = error.ngOriginalError;
-        }
+        const error = errorInput?.ngOriginalError ?? errorInput;
 
         // We can handle messages and Error objects directly.
         if (typeof error === 'string') {

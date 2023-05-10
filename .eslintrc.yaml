@@ -55,7 +55,6 @@ overrides:
       sourceType: module
     rules:
       no-console: off
-      no-param-reassign: off
 
   -
     files:
@@ -73,7 +72,6 @@ overrides:
       '@typescript-eslint/no-invalid-void-type': off
       '@typescript-eslint/no-redundant-type-constituents': off
       no-console: error
-      no-param-reassign: off
 
   -
     files:
