@@ -23,23 +23,6 @@ const environmentFile = `../src/environments/environment.${args.configuration}.t
 (global as any).window = {}; // window is used in the environment. Fake it
 const environment: Environment = require(environmentFile).environment;
 
-let reportUri: string | null = null;
-
-if (environment.sentry.enabled) {
-    const dsn = new URL(environment.sentry.dsn);
-    const sentryProjectId = dsn.pathname.substring(1);
-    const reportUriParams = new URLSearchParams({
-        sentry_environment: environment.environment,
-        sentry_key: dsn.username,
-    });
-
-    if (environment.release !== undefined) {
-        reportUriParams.set('sentry_release', environment.release);
-    }
-
-    reportUri = `https://sentry.io/api/${sentryProjectId}/security/?${reportUriParams}`;
-}
-
 // language=Nginx Configuration
 const headers = environment.production
     ? `\
