@@ -13,16 +13,13 @@ overrides:
       - '@matthiaskunnen/eslint-config-base'
 
   -
-    env:
-      node: true
     files:
       - 'api/**/*.ts'
-      - 'shared/**/*.ts'
+    env:
+      node: true
     extends:
       - '@matthiaskunnen/eslint-config-typescript-node'
-
     parser: '@typescript-eslint/parser'
-
     parserOptions:
       project:
         - tsconfig.lint.json
@@ -31,31 +28,48 @@ overrides:
       no-console: off
 
   -
+    files:
+      - 'build/**/*.ts'
     env:
       node: true
     extends:
-      - '@matthiaskunnen/eslint-config-typescript'
-    files:
-      - 'build/**/*.ts'
-    parser: '@typescript-eslint/parser'
+      - '@matthiaskunnen/eslint-config-typescript-node'
     parserOptions:
       project:
         - build/tsconfig.json
-      sourceType: module
 
   -
-    extends:
-      - '@matthiaskunnen/eslint-config-angular'
-    env:
-      browser: true
     files:
-      - 'src/**/*.interface.ts'
-      - 'src/**/*.model.ts'
+      - 'shared/**/*.ts'
+    extends:
+      - '@matthiaskunnen/eslint-config-typescript'
     parser: '@typescript-eslint/parser'
     parserOptions:
       project:
         - tsconfig.lint.json
       sourceType: module
+    rules:
+      no-console: off
+
+  -
+    files:
+      - 'src/**/*.ts'
+    env:
+      browser: true
+    extends:
+      - '@matthiaskunnen/eslint-config-angular'
+    parser: '@typescript-eslint/parser'
+    parserOptions:
+      project:
+        - tsconfig.lint.json
+      sourceType: module
+    rules:
+      no-console: error
+
+  -
+    files:
+      - 'src/**/*.interface.ts'
+      - 'src/**/*.model.ts'
     rules:
       '@typescript-eslint/member-ordering':
         - error
@@ -79,18 +93,3 @@ overrides:
               - private-instance-method
               - signature
             order: alphabetically
-      no-console: error
-  -
-    extends:
-      - '@matthiaskunnen/eslint-config-angular'
-    env:
-      browser: true
-    files:
-      - 'src/**/*.ts'
-    parser: '@typescript-eslint/parser'
-    parserOptions:
-      project:
-        - tsconfig.lint.json
-      sourceType: module
-    rules:
-      no-console: error
