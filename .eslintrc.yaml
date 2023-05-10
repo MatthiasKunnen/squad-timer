@@ -104,5 +104,3 @@ overrides:
       - '*.html'
     extends:
       - '@matthiaskunnen/eslint-config-angular/templates.js'
-    rules:
-      '@angular-eslint/template/label-has-associated-control': off
