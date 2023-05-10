@@ -1,4 +1,4 @@
-import {Environment} from './environment.interface';
+import type {Environment} from './environment.interface';
 
 // Recommendation: run git update-index --skip-worktree src/environments/environment.ts to prevent
 // git from tracking changes to this file (experimental)

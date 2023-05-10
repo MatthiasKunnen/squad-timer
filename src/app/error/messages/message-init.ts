@@ -13,7 +13,7 @@ export function initErrorMessages() {
 
     initialized = true;
 
-    ErrorRepository.errorMessages['max'] = maxError;
-    ErrorRepository.errorMessages['min'] = minError;
-    ErrorRepository.errorMessages['required'] = requiredError;
+    ErrorRepository.errorMessages.max = maxError;
+    ErrorRepository.errorMessages.min = minError;
+    ErrorRepository.errorMessages.required = requiredError;
 }

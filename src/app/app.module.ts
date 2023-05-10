@@ -6,9 +6,9 @@ import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {DateAdapter} from '@angular/material/core';
+import type {MatFormFieldDefaultOptions} from '@angular/material/form-field';
 import {
     MAT_FORM_FIELD_DEFAULT_OPTIONS,
-    MatFormFieldDefaultOptions,
 } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';

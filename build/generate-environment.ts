@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import {Environment} from '../src/environments/environment.interface';
+import type {Environment} from '../src/environments/environment.interface';
 import {getHeadHash} from './env.util';
 
 const gitHead = getHeadHash();

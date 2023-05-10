@@ -1,4 +1,4 @@
-import {ErrorMessage} from 'angular-error-repository';
+import type {ErrorMessage} from 'angular-error-repository';
 
 export const minError: ErrorMessage<{
     actual: number;

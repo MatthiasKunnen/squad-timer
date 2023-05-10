@@ -1,13 +1,16 @@
-import {createServer, Server} from 'http';
+import type {Server} from 'http';
+import {createServer} from 'http';
 
 import * as WebSocket from 'ws';
 
 import {assignStrict} from '../shared/utils/object.util';
-import {
+import type {
     CreateRoomRequest,
     JoinRoomRequest,
-    ListTimersRequest,
     UpdateRoomTimersRequest,
+} from '../shared/ws-requests.model';
+import {
+    ListTimersRequest,
     WsRequest,
 } from '../shared/ws-requests.model';
 import {
@@ -16,7 +19,7 @@ import {
     ListTimersResponse, UpdateRoomTimersResponse,
     WsResponse,
 } from '../shared/ws-responses.model';
-import {ActionInfo, Room} from './handler.interface';
+import type {ActionInfo, Room} from './handler.interface';
 import {decoverto} from './instances/decoverto.instance';
 import {getRandomMnemonic} from './mnemonic-words';
 
@@ -95,7 +98,7 @@ export class WebsocketHandler {
         });
     }
 
-    joinRoom(info: ActionInfo<JoinRoomRequest>): void | JoinRoomResponse {
+    joinRoom(info: ActionInfo<JoinRoomRequest>): JoinRoomResponse | void {
         const room = this.rooms.get(info.message.name);
 
         if (room === undefined) {

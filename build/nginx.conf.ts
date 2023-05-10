@@ -3,7 +3,7 @@
 
 import {ArgumentParser} from 'argparse';
 
-import {Environment} from '../src/environments/environment.interface';
+import type {Environment} from '../src/environments/environment.interface';
 
 const parser = new ArgumentParser({
     addHelp: true,

@@ -67,7 +67,7 @@ export class DateFnsDateAdapter extends DateAdapter<Date> {
         return getDay(date);
     }
 
-    getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): Array<string> {
+    getDayOfWeekNames(style: 'long' | 'narrow' | 'short'): Array<string> {
         const map = {
             long: 'EEEE',
             short: 'E..EEE',
@@ -90,7 +90,7 @@ export class DateFnsDateAdapter extends DateAdapter<Date> {
         return getMonth(date);
     }
 
-    getMonthNames(style: 'long' | 'short' | 'narrow'): Array<string> {
+    getMonthNames(style: 'long' | 'narrow' | 'short'): Array<string> {
         const map = {
             long: 'LLLL',
             short: 'LLL',
@@ -129,7 +129,7 @@ export class DateFnsDateAdapter extends DateAdapter<Date> {
         return date instanceof Date && !isNaN(date.getTime());
     }
 
-    parse(value: any, parseFormats: string | Array<string>): Date | null {
+    parse(value: any, parseFormats: Array<string> | string): Date | null {
         parseFormats = typeof parseFormats === 'string' ? [parseFormats] : parseFormats;
 
         for (const parseFormat of parseFormats) {

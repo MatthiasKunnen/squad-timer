@@ -1,4 +1,5 @@
-import {Breadcrumb, init} from '@sentry/browser';
+import type {Breadcrumb} from '@sentry/browser';
+import {init} from '@sentry/browser';
 import {Dedupe, ExtraErrorData, ReportingObserver} from '@sentry/integrations';
 
 import {environment} from '../../../environments/environment';
@@ -54,7 +55,7 @@ export class SentryErrorHandler {
             message.push(event.target.innerText);
         }
 
-        breadcrumb.message = message.map(m => m?.trim()).join(' > ');
+        breadcrumb.message = message.map(m => m.trim()).join(' > ');
 
         return breadcrumb;
     }

@@ -1,5 +1,6 @@
 import {BreakpointObserver} from '@angular/cdk/layout';
-import {Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import type {OnDestroy, OnInit} from '@angular/core';
+import {Component, HostBinding} from '@angular/core';
 import {DateAdapter} from '@angular/material/core';
 import dateLocaleEn from 'date-fns/locale/en-GB';
 import {ReplaySubject} from 'rxjs';

@@ -1,5 +1,6 @@
 import {HttpErrorResponse} from '@angular/common/http';
-import {ErrorHandler, Injectable} from '@angular/core';
+import type {ErrorHandler} from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {Logger} from '../../utils/logger.util';
 

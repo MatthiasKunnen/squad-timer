@@ -1,14 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MatTooltip} from '@angular/material/tooltip';
+import type {OnDestroy, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import type {MatTooltip} from '@angular/material/tooltip';
 import {ActivatedRoute, Router} from '@angular/router';
 import {addHours, addMinutes, addSeconds, isAfter, isFuture} from 'date-fns';
 import {Decoverto} from 'decoverto';
+import type {Observer} from 'rxjs';
 import {
     EMPTY,
     fromEvent,
     merge,
     Observable,
-    Observer,
     ReplaySubject,
     Subject,
     timer,
@@ -25,7 +26,8 @@ import {
     takeUntil,
     tap,
 } from 'rxjs/operators';
-import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
+import type {WebSocketSubject} from 'rxjs/webSocket';
+import {webSocket} from 'rxjs/webSocket';
 
 import {Timer, Unit} from '../../../shared/timer.model';
 import {assignStrict} from '../../../shared/utils/object.util';
@@ -64,7 +66,7 @@ export class TimersComponent implements OnDestroy, OnInit {
     roomName: string | null = null;
     roomUrl: string | null = null;
     socket: WebSocketHandler | null = null;
-    socketStatus: 'connecting' | 'disconnected' | 'connected' = 'connecting';
+    socketStatus: 'connected' | 'connecting' | 'disconnected' = 'connecting';
     timers: Array<Timer> = [];
     units: Array<Unit>;
 

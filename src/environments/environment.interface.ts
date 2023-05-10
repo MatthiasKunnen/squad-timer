@@ -3,11 +3,11 @@ export interface Environment {
     production: boolean;
     release?: string;
     sentry: {
-        dsn?: string;
-        enabled: false;
-    } | {
         dsn: string;
         enabled: true;
+    } | {
+        dsn?: string;
+        enabled: false;
     };
     serviceWorkerEnabled: boolean;
     websocketUrl: string;

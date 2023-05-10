@@ -1,5 +1,5 @@
 import {generatedEnvironment} from './environment.generated';
-import {Environment} from './environment.interface';
+import type {Environment} from './environment.interface';
 
 export function applyGeneratedEnvironment(environment: Environment): void {
     Object.assign(environment, generatedEnvironment);

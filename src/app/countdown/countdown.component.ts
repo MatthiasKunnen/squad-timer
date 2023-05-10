@@ -1,10 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {
+import type {OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import type {
     differenceInDays,
+    subDays,
+} from 'date-fns';
+import {
     differenceInMinutes,
     differenceInSeconds,
     isPast,
-    subDays,
     subMinutes,
     subSeconds,
 } from 'date-fns';

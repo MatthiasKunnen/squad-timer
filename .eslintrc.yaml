@@ -25,6 +25,9 @@ overrides:
         - tsconfig.lint.json
       sourceType: module
     rules:
+      '@typescript-eslint/no-base-to-string': off
+      '@typescript-eslint/no-invalid-void-type': off
+      '@typescript-eslint/require-await': off
       no-console: off
 
   -
@@ -37,6 +40,9 @@ overrides:
     parserOptions:
       project:
         - build/tsconfig.json
+    rules:
+      '@typescript-eslint/no-unused-vars': off
+      '@typescript-eslint/no-var-requires': off
 
   -
     files:
@@ -50,6 +56,7 @@ overrides:
       sourceType: module
     rules:
       no-console: off
+      no-param-reassign: off
 
   -
     files:
@@ -64,7 +71,13 @@ overrides:
         - tsconfig.lint.json
       sourceType: module
     rules:
+      '@typescript-eslint/no-invalid-void-type': off
+      '@typescript-eslint/no-redundant-type-constituents': off
+      '@typescript-eslint/no-unnecessary-condition': off
+      '@typescript-eslint/switch-exhaustiveness-check': off
       no-console: error
+      no-new: off
+      no-param-reassign: off
 
   -
     files:
@@ -93,3 +106,11 @@ overrides:
               - private-instance-method
               - signature
             order: alphabetically
+  -
+    files:
+      - '*.html'
+    extends:
+      - '@matthiaskunnen/eslint-config-angular/templates.js'
+    rules:
+      '@angular-eslint/template/button-has-type': off
+      '@angular-eslint/template/label-has-associated-control': off

@@ -10,11 +10,11 @@ interface ErrorCodeDeterminator {
 
 export class Logger {
 
-    static error(input: {
+    static error(input: string | {
         error?: Error | unknown;
         info?: any;
         message: string;
-    } | string): void {
+    }): void {
         if (typeof input === 'string') {
             // eslint-disable-next-line no-console
             console.error(input);
@@ -41,7 +41,7 @@ export class Logger {
 
     static errorWrap(error: Error): void;
     static errorWrap(message: string, info?: any): (err: Error) => void;
-    static errorWrap(errorOrMessage: string | Error, info?: any): ((err: Error) => void) | void {
+    static errorWrap(errorOrMessage: Error | string, info?: any): ((err: Error) => void) | void {
         if (errorOrMessage instanceof Error) {
             Logger.error({
                 error: errorOrMessage,
@@ -99,7 +99,7 @@ export class Logger {
         return result ?? defaultCode ?? 'Error.Unknown';
     }
 
-    static warn(message: string, info: {[k: string]: any}): void {
+    static warn(message: string, info: Record<string, any>): void {
         // eslint-disable-next-line no-console
         console.warn(message);
         captureMessage(message, {
