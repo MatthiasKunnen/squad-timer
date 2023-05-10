@@ -32,7 +32,7 @@ export class Logger {
         } else {
             captureException(input.error, {
                 extra: {
-                    message: input.message ?? (input.error as any)?.message,
+                    message: input.message,
                     ...input.info,
                 },
             });
@@ -54,7 +54,7 @@ export class Logger {
             Logger.error({
                 error,
                 info,
-                message: errorOrMessage ?? error.message,
+                message: error.message,
             });
         };
     }
@@ -65,23 +65,16 @@ export class Logger {
         info?: any;
         message: string;
     }): string {
-        let result: string | null = null;
-        let log = true;
-
-        function assignResultAndLog(input?: ErrorCodeDeterminator | null): void {
-            if (input == null) {
-                return;
-            }
-
-            result = input.code;
-            log = input.log;
-        }
+        let errorCode: string | undefined;
+        let shouldLog = false;
 
         if (error instanceof HttpErrorResponse) {
-             assignResultAndLog(this.getErrorCodeFromHttpErrorResponse(error));
+            const result = this.getErrorCodeFromHttpErrorResponse(error);
+            errorCode = result?.code ?? errorCode;
+            shouldLog = result?.log ?? shouldLog;
         }
 
-        if (log) {
+        if (shouldLog) {
             Logger.error({
                 error,
                 info,
@@ -96,7 +89,7 @@ export class Logger {
             });
         }
 
-        return result ?? defaultCode ?? 'Error.Unknown';
+        return errorCode ?? defaultCode ?? 'Error.Unknown';
     }
 
     static warn(message: string, info: Record<string, any>): void {
