@@ -6,10 +6,18 @@ import {environment} from '../../../environments/environment';
 
 export class SentryErrorHandler {
 
-    private readonly enabled = environment.sentry.enabled;
+    private static initialized = false;
 
-    constructor() {
-        if (this.enabled) {
+    private constructor() {
+        // Do not allow construction
+    }
+
+    static init() {
+        if (this.initialized) {
+            return;
+        }
+
+        if (environment.sentry.enabled) {
             const objectDepth = 10;
 
             init({
@@ -29,20 +37,24 @@ export class SentryErrorHandler {
                 release: environment.release,
             });
         }
+
+        this.initialized = true;
     }
 
-    private modifyBreadcrumb(breadcrumb: Breadcrumb, hint: any): Breadcrumb | null {
+    private static modifyBreadcrumb(breadcrumb: Breadcrumb, hint: any): Breadcrumb | null {
         switch (breadcrumb.category) {
             case 'ui.click':
                 return this.breadcrumbUiClick(breadcrumb, hint);
             case 'ui.input':
                 return this.breadcrumbUiInput(breadcrumb, hint);
+            case 'xhr':
+                return this.breadcrumbXhr(breadcrumb, hint);
+            default:
+                return breadcrumb;
         }
-
-        return breadcrumb;
     }
 
-    private breadcrumbUiClick(
+    private static breadcrumbUiClick(
         breadcrumb: Breadcrumb,
         {event}: {event: MouseEvent; name: 'click'},
     ): Breadcrumb | null {
@@ -60,7 +72,7 @@ export class SentryErrorHandler {
         return breadcrumb;
     }
 
-    private breadcrumbUiInput(breadcrumb: Breadcrumb, hint: any) {
+    private static breadcrumbUiInput(breadcrumb: Breadcrumb, hint: any) {
         const target: HTMLElement = hint.event.target;
 
         const message = ['input'];
@@ -80,7 +92,33 @@ export class SentryErrorHandler {
         return breadcrumb;
     }
 
-    private pathToString(path: Array<any>): string {
+    private static breadcrumbXhr(breadcrumb: Breadcrumb, {xhr}: {xhr: XMLHttpRequest}) {
+        const graphqlOperation = xhr.getResponseHeader('X-GraphQL-Operation');
+
+        if (graphqlOperation !== null) {
+            if (breadcrumb.data === undefined) {
+                breadcrumb.data = {};
+            }
+
+            breadcrumb.data.graphqlOperation = graphqlOperation;
+            breadcrumb.message = `GraphQL: ${graphqlOperation}`;
+        }
+
+        const requestId = xhr.getResponseHeader('X-Request-Id');
+
+        if (requestId !== null) {
+            if (breadcrumb.data === undefined) {
+                breadcrumb.data = {};
+            }
+
+            breadcrumb.data.requestId = requestId;
+            breadcrumb.message = `Request ID: ${requestId}`;
+        }
+
+        return breadcrumb;
+    }
+
+    private static pathToString(path: Array<any>): string {
         return path
             .filter(e => e instanceof HTMLElement)
             .reverse()

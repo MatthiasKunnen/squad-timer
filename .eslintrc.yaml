@@ -73,9 +73,7 @@ overrides:
     rules:
       '@typescript-eslint/no-invalid-void-type': off
       '@typescript-eslint/no-redundant-type-constituents': off
-      '@typescript-eslint/switch-exhaustiveness-check': off
       no-console: error
-      no-new: off
       no-param-reassign: off
 
   -

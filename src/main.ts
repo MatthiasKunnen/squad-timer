@@ -8,7 +8,7 @@ import {Logger} from './app/utils/logger.util';
 import {environment} from './environments/environment';
 
 async function start() {
-    new SentryErrorHandler();
+    SentryErrorHandler.init();
 
     if (environment.production) {
         enableProdMode();
