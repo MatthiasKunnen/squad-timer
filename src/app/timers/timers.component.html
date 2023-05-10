@@ -1,5 +1,6 @@
 <div class="units">
     <button
+        type="button"
         class="no-padding button-image-content button-scale"
         mat-button
         [attr.aria-label]="'Add ' + unit.name"
@@ -16,6 +17,7 @@
 <div class="timers">
     <div class="timer mat-elevation-z1" *ngFor="let timer of timers; let i = index">
         <button
+            type="button"
             class="unit-icon no-padding button-image-content button-scale"
             mat-button
             [attr.aria-label]="'Change side of ' + timer.unit.name + '. Currently ' + timer.side"
@@ -28,6 +30,7 @@
         </button>
         <div class="time-container">
             <button
+                type="button"
                 class="time-action"
                 mat-icon-button
                 aria-label="Subtract one minute"
@@ -39,6 +42,7 @@
             <app-countdown [date]="timer.spawnsOn"
                            [updateObservable]="updateObservable"></app-countdown>
             <button
+                type="button"
                 class="time-action"
                 mat-icon-button
                 aria-label="Add one minute"
@@ -50,6 +54,7 @@
         </div>
         <div class="actions">
             <button
+                type="button"
                 mat-icon-button
                 aria-label="Delete timer"
                 matTooltip="Delete timer"
@@ -65,6 +70,7 @@
 </p>
 <div *ngIf="roomName !== null && roomUrl !== null">
     <button class="link"
+            type="button"
             [cdkCopyToClipboard]="roomUrl"
             #roomUrlTooltip="matTooltip"
             (mouseenter)="$event.stopImmediatePropagation()"
@@ -77,6 +83,7 @@
         {{socketStatus}}
     </span>
     <button mat-icon-button
+            type="button"
             aria-label="Disconnect"
             matTooltip="Disconnect"
             (click)="disconnect()">
@@ -84,6 +91,7 @@
     </button>
 </div>
 <button mat-fab
+        type="button"
         class="create-room create-room-desktop"
         matTooltip="Share your timers"
         aria-label="Share your timers"
@@ -93,6 +101,7 @@
     <mat-spinner *ngIf="socket !== null" [diameter]="24"></mat-spinner>
 </button>
 <button mat-mini-fab
+        type="button"
         class="create-room create-room-mobile"
         matTooltip="Share your timers"
         aria-label="Share your timers"

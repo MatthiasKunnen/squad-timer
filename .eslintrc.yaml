@@ -105,5 +105,4 @@ overrides:
     extends:
       - '@matthiaskunnen/eslint-config-angular/templates.js'
     rules:
-      '@angular-eslint/template/button-has-type': off
       '@angular-eslint/template/label-has-associated-control': off
