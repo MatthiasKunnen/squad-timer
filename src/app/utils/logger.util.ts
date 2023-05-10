@@ -11,7 +11,7 @@ interface ErrorCodeDeterminator {
 export class Logger {
 
     static error(input: string | {
-        error?: Error | unknown;
+        error?: unknown;
         info?: any;
         message: string;
     }): void {

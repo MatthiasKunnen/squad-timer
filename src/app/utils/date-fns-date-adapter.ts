@@ -125,7 +125,7 @@ export class DateFnsDateAdapter extends DateAdapter<Date> {
         return obj instanceof Date;
     }
 
-    isValid(date: Date | any): boolean {
+    isValid(date: unknown): boolean {
         return date instanceof Date && !isNaN(date.getTime());
     }
 

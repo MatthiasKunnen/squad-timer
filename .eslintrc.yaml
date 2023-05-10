@@ -70,7 +70,6 @@ overrides:
       sourceType: module
     rules:
       '@typescript-eslint/no-invalid-void-type': off
-      '@typescript-eslint/no-redundant-type-constituents': off
       no-console: error
 
   -
