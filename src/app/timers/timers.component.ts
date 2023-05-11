@@ -52,6 +52,7 @@ type WebSocketData = WsRequest | WsResponse | null;
 type WebSocketHandler = WebSocketSubject<WebSocketData>;
 
 @Component({
+    selector: 'app-timers',
     templateUrl: './timers.component.html',
     styleUrls: ['./timers.component.scss'],
 })
