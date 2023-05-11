@@ -5,7 +5,7 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "lib": [
-            "ES2021",
+            "ES2022",
         ],
         "module": "CommonJS",
         "moduleResolution": "node",
@@ -15,7 +15,7 @@
         "sourceMap": true,
         "strict": true,
         "strictPropertyInitialization": false,
-        "target": "ES2021", // See https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
+        "target": "ES2022", // See https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
     },
     "files": [
         "api/server.ts"

@@ -8,12 +8,10 @@
         "experimentalDecorators": true,
         "importHelpers": true,
         "lib": [
-            "es2018",
-            "es2019",
+            "ES2022",
             "dom",
-            "esnext.asynciterable"
         ],
-        "module": "es2020",
+        "module": "ES2022",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "outDir": "./dist/out-tsc",
