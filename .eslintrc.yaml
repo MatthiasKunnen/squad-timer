@@ -26,7 +26,6 @@ overrides:
       sourceType: module
     rules:
       '@typescript-eslint/no-base-to-string': off
-      '@typescript-eslint/no-invalid-void-type': off
       no-console: off
 
   -
@@ -68,7 +67,6 @@ overrides:
         - tsconfig.lint.json
       sourceType: module
     rules:
-      '@typescript-eslint/no-invalid-void-type': off
       no-console: error
 
   -

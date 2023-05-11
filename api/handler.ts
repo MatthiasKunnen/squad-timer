@@ -23,7 +23,7 @@ import type {ActionInfo, Room} from './handler.interface';
 import {decoverto} from './instances/decoverto.instance';
 import {getRandomMnemonic} from './mnemonic-words';
 
-type ActionHandler = (info: ActionInfo<any>) => WsResponse | undefined | void;
+type ActionHandler = (info: ActionInfo<any>) => WsResponse | undefined;
 
 export class WebsocketHandler {
 
@@ -98,7 +98,7 @@ export class WebsocketHandler {
         });
     }
 
-    joinRoom(info: ActionInfo<JoinRoomRequest>): JoinRoomResponse | void {
+    joinRoom(info: ActionInfo<JoinRoomRequest>): JoinRoomResponse | undefined {
         const room = this.rooms.get(info.message.name);
 
         if (room === undefined) {
@@ -128,7 +128,7 @@ export class WebsocketHandler {
         this.sendResponse(firstClient, new ListTimersResponse());
     }
 
-    updateRoomTimers(info: ActionInfo<UpdateRoomTimersRequest>): void {
+    updateRoomTimers(info: ActionInfo<UpdateRoomTimersRequest>): undefined {
         const room = this.rooms.get(info.message.name);
         if (room === undefined) {
             return;
@@ -181,7 +181,7 @@ export class WebsocketHandler {
         };
     }
 
-    private sendResponse(ws: WebSocket, response: WsResponse | undefined | void): void {
+    private sendResponse(ws: WebSocket, response: WsResponse | undefined): void {
         if (response === undefined) {
             return;
         }

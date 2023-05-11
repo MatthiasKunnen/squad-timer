@@ -41,7 +41,10 @@ export class Logger {
 
     static errorWrap(error: Error): void;
     static errorWrap(message: string, info?: any): (err: Error) => void;
-    static errorWrap(errorOrMessage: Error | string, info?: any): ((err: Error) => void) | void {
+    static errorWrap(
+        errorOrMessage: Error | string,
+        info?: any,
+    ): ((err: Error) => void) | undefined {
         if (errorOrMessage instanceof Error) {
             Logger.error({
                 error: errorOrMessage,
