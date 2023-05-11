@@ -52,7 +52,7 @@ overrides:
         - tsconfig.lint.json
       sourceType: module
     rules:
-      no-console: off
+      no-console: error
 
   -
     files:
