@@ -77,3 +77,12 @@
         margin-right: -4px;
     }
 }
+
+button[color='primary'][mat-flat-button],
+button[color='primary'][mat-raised-button] {
+
+    .mat-mdc-progress-spinner circle {
+        // Make sure spinner has enough contrast on primary color
+        stroke: black;
+    }
+}

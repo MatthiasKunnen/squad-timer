@@ -2,6 +2,11 @@
 @use 'mixins';
 @use 'variables';
 
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
 .units {
     text-align: center;
 }
@@ -41,33 +46,65 @@
     margin-top: 1em;
 }
 
-.create-room {
-    position: fixed;
-    right: 16px;
-    bottom: 28px;
-    z-index: 10;
+.share-panel {
 
-    mat-spinner {
-        display: inline-block;
+    mat-expansion-panel-header {
 
-        ::ng-deep circle {
-            stroke: white;
+        ::ng-deep .mat-content {
+            // Align room status in the center
+            display: grid;
+            align-items: center;
+            margin: 0;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1em;
+
+            > * {
+                margin: 0;
+            }
+        }
+
+        .share-panel-title-mobile {
+            display: none;
+        }
+
+        .mat-expansion-panel-header-description {
+            justify-self: center;
+        }
+
+        .expand {
+            margin-right: 5px; // Align with right icon in the timer row
+            // Transition copied from
+            // https://github.com/angular/components/blob/cda36e9a7aa7c3/src/material/expansion/_expansion-variables.scss#L30
+            transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.5em;
+            justify-self: end;
+        }
+
+        &.mat-expanded .expand {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 599px) {
+            ::ng-deep .mat-content {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .mat-expansion-panel-header-description,
+            .share-panel-title-desktop {
+                display: none;
+            }
+
+            .share-panel-title-mobile {
+                display: block;
+            }
+
         }
     }
 
-    &-mobile {
-        bottom: 56px - 20px;
-
-        @media (min-width: 480px) {
-            display: none;
-        }
-    }
-
-    &-desktop {
-
-        @media (max-width: 479px) {
-            display: none;
-        }
+    .actions {
+        display: flex;
+        justify-content: flex-end;
     }
 }
 

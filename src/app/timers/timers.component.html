@@ -68,45 +68,112 @@
 <p *ngIf="timers.length === 0" class="timers-info text-center">
     Click on a vehicle when it is destroyed and a timer will be started.
 </p>
-<div *ngIf="roomName !== null && roomUrl !== null">
-    <button class="link"
+<mat-expansion-panel class="share-panel" hideToggle>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            <span *ngIf="roomUrl === null">
+                Share your timers
+            </span>
+            <span
+                *ngIf="roomUrl !== null"
+                class="share-panel-title-desktop"
+            >
+                Sharing timers
+            </span>
+            <span
+                *ngIf="roomUrl !== null"
+                class="share-panel-title-mobile"
+                [class.text-error]="socketStatus === 'disconnected'"
+                [class.text-success]="socketStatus === 'connected'"
+                [class.text-warning]="socketStatus === 'connecting'"
+            >
+                Sharing timers
+            </span>
+        </mat-panel-title>
+        <mat-panel-description>
+            <span *ngIf="roomUrl !== null">
+                {{roomName}}:
+                <span
+                    [class.text-error]="socketStatus === 'disconnected'"
+                    [class.text-success]="socketStatus === 'connected'"
+                    [class.text-warning]="socketStatus === 'connecting'"
+                >
+                    {{socketStatus}}
+                </span>
+            </span>
+        </mat-panel-description>
+        <mat-icon class="expand" inline>expand_more</mat-icon>
+    </mat-expansion-panel-header>
+    <ng-container *ngIf="roomName === null">
+        <p>
+            Sharing your timers enables crews or even teams to collaborate on the status of enemy and
+            friendly equipment.
+        </p>
+        <p>
+            In a crew share scenario, every member of the crew can see and modify the timers without a
+            need for radio communication.
+            This enables the least busy crew member to mark destroyed vehicles.
+        </p>
+        <p>
+            In a team or clan share scenario, anti-tank infantry can report destroyed vehicles without
+            the need to relay messages through squad leads and each armor crew no longer needs to track
+            respawn time of vehicles individually.
+        </p>
+    </ng-container>
+    <div *ngIf="roomName !== null && roomUrl !== null">
+        <p>
+            Currently
+            <span
+                [class.text-error]="socketStatus === 'disconnected'"
+                [class.text-success]="socketStatus === 'connected'"
+                [class.text-warning]="socketStatus === 'connecting'"
+            >
+                {{socketStatus}}
+            </span>
+            <span *ngIf="socketStatus !== 'disconnected'">
+                to
+            </span>
+            <span *ngIf="socketStatus === 'disconnected'">
+                from
+            </span>
+            {{roomName}}.
+        </p>
+        <p>
+            Share the room link to allow others to see, update, add, and remove timers.
+        </p>
+        <div class="url-container">
+            <span>{{roomUrl}}</span>
+            <button class="link"
+                type="button"
+                mat-icon-button
+                [cdkCopyToClipboard]="roomUrl"
+                (cdkCopyToClipboardCopied)="roomUrlCopyResult($event, roomUrlTooltip)"
+                matTooltip="Copy URL"
+                #roomUrlTooltip="matTooltip"
+            >
+                <mat-icon>content_copy</mat-icon>
+            </button>
+        </div>
+    </div>
+    <div class="actions">
+        <button
             type="button"
-            [cdkCopyToClipboard]="roomUrl"
-            #roomUrlTooltip="matTooltip"
-            (mouseenter)="$event.stopImmediatePropagation()"
-            matTooltip="URL copied"
-            (click)="copyRoomUrl(roomUrlTooltip)">
-        {{roomName}}:
-    </button>
-    <span [class.text-error]="socketStatus === 'disconnected'"
-          [class.text-success]="socketStatus === 'connected'">
-        {{socketStatus}}
-    </span>
-    <button mat-icon-button
+            *ngIf="roomName === null"
+            mat-flat-button
+            color="primary"
+            (click)="share()"
+        >
+            <mat-spinner matButtonIcon *ngIf="socket != null" [diameter]="18"></mat-spinner>
+            Share your timers
+        </button>
+        <button
             type="button"
-            aria-label="Disconnect"
-            matTooltip="Disconnect"
-            (click)="disconnect()">
-        <mat-icon>power_off</mat-icon>
-    </button>
-</div>
-<button mat-fab
-        type="button"
-        class="create-room create-room-desktop"
-        matTooltip="Share your timers"
-        aria-label="Share your timers"
-        *ngIf="roomName === null"
-        (click)="share()">
-    <mat-icon *ngIf="socket === null">share</mat-icon>
-    <mat-spinner *ngIf="socket !== null" [diameter]="24"></mat-spinner>
-</button>
-<button mat-mini-fab
-        type="button"
-        class="create-room create-room-mobile"
-        matTooltip="Share your timers"
-        aria-label="Share your timers"
-        *ngIf="roomName === null"
-        (click)="share()">
-    <mat-icon *ngIf="socket === null">share</mat-icon>
-    <mat-spinner *ngIf="socket !== null" [diameter]="16"></mat-spinner>
-</button>
+            *ngIf="roomName !== null"
+            mat-button
+            (click)="disconnect()"
+            matTooltip="Disconnect from the room">
+            <mat-icon>power_off</mat-icon>
+            Disconnect
+        </button>
+    </div>
+</mat-expansion-panel>

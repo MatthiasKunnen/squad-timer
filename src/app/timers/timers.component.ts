@@ -4,7 +4,7 @@ import type {MatTooltip} from '@angular/material/tooltip';
 import {ActivatedRoute, Router} from '@angular/router';
 import {addHours, addMinutes, addSeconds, isAfter, isFuture} from 'date-fns';
 import {Decoverto} from 'decoverto';
-import type {Observer} from 'rxjs';
+import type {Observer, Subscription} from 'rxjs';
 import {
     EMPTY,
     fromEvent,
@@ -66,6 +66,7 @@ export class TimersComponent implements OnDestroy, OnInit {
     manualUpdateSubject: Subject<void>;
     roomName: string | null = null;
     roomUrl: string | null = null;
+    roomUrlTooltipHiddenSubscription: Subscription | undefined;
     socket: WebSocketHandler | null = null;
     socketStatus: 'connected' | 'connecting' | 'disconnected' = 'connecting';
     timers: Array<Timer> = [];
@@ -161,11 +162,46 @@ export class TimersComponent implements OnDestroy, OnInit {
         this.storeTimers();
     }
 
-    copyRoomUrl(roomUrl: MatTooltip): void {
-        roomUrl.show();
+    /**
+     * Makes an existing tooltip read "Url copied" on successful copy to clipboard and reinstates
+     * text when the tooltip is hidden.
+     *
+     * The difficulty here lies in the method used by `cdkCopyToClipboard` causing the tooltip to be
+     * hidden. We need to immediately reshow the tooltip with the correct text. Then, after the
+     * tooltip is hidden, we need the original text to be reinstated.
+     * @param success Whether the copy operation was a success.
+     * @param tooltip The tooltip that should be shown and edited.
+     */
+    roomUrlCopyResult(success: boolean, tooltip: MatTooltip): void {
+        // Unsubscribe from previous afterHidden. This addresses the following problem:
+        // 1. user hovers over button -> this displays the tooltip
+        // 2. user clicks button -> text is changed to say 'URL copied' and registers an observable
+        //    to change the text back when the tooltip is hidden.
+        // 3. user clicks button again (note the tooltip never got hidden because the user never
+        //    stopped hovering). Clicking the button executes cdkCopyToClipboard and hides the
+        //    tooltip. The text is changed to "URL copied" by this function. At the same time, the
+        //    previously registered afterHidden subscription will complete and change the text back.
+        //    This will result in the text continuing to read "Copy URL".
+        this.roomUrlTooltipHiddenSubscription?.unsubscribe();
+
+        if (!success) {
+            return;
+        }
+
+        tooltip.message = 'URL copied';
+
         setTimeout(() => {
-            roomUrl.hide();
-        }, 2000);
+            // The copy action causes the tooltip to hide. Show it again in the next change
+            // detection cycle.
+            tooltip.show();
+            this.roomUrlTooltipHiddenSubscription = tooltip._tooltipInstance?.afterHidden()
+                .subscribe({
+                    complete: () => {
+                        // Change the text of the tooltip back when the tooltip is hidden
+                        tooltip.message = 'Copy URL';
+                    },
+                });
+        });
     }
 
     disconnect(): void {
