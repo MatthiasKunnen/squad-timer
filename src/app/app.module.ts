@@ -5,7 +5,6 @@ import locale from '@angular/common/locales/en-BE';
 import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {DateAdapter} from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import type {MatFormFieldDefaultOptions} from '@angular/material/form-field';
 import {
@@ -36,7 +35,6 @@ import {CustomRouteReuseStrategy} from './route-reuse-strategy';
 import {SettingsComponent} from './settings/settings.component';
 import {TimersComponent} from './timers/timers.component';
 import {UpdateService} from './update/update.service';
-import {DateFnsDateAdapter} from './utils/date-fns-date-adapter';
 import {decoverto} from './utils/decoverto.util';
 
 registerLocaleData(locale);
@@ -80,10 +78,6 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         {provide: ErrorHandler, useClass: CustomErrorHandler},
         {provide: LOCALE_ID, useValue: 'en-BE'},
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: matFormFieldDefaultOptions},
-        {
-            provide: DateAdapter,
-            useClass: DateFnsDateAdapter,
-        },
         UpdateService,
         {provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy},
     ],

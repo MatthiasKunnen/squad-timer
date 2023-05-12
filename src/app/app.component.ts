@@ -1,8 +1,6 @@
 import type {OnDestroy, OnInit} from '@angular/core';
 import {Component} from '@angular/core';
-import {DateAdapter} from '@angular/material/core';
 import {NavigationEnd, NavigationSkipped, Router} from '@angular/router';
-import dateLocaleEn from 'date-fns/locale/en-GB';
 import {ReplaySubject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -20,7 +18,6 @@ export class AppComponent implements OnDestroy, OnInit {
     private readonly destroyed = new ReplaySubject<void>(1);
 
     constructor(
-        private readonly dateAdapter: DateAdapter<any>,
         private readonly router: Router,
     ) {
     }
@@ -31,7 +28,6 @@ export class AppComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit(): void {
-        this.dateAdapter.setLocale(dateLocaleEn);
         initErrorMessages();
 
         this.router.events.pipe(
