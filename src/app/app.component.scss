@@ -3,19 +3,8 @@
 
 :host {
     display: flex;
-    position: absolute;
-    right: 0;
-    bottom: 56px;
-    left: 0;
     flex-direction: column;
-}
-
-.header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 2;
+    height: 100%;
 }
 
 .router-container {
@@ -25,6 +14,7 @@
 }
 
 ::ng-deep .router-flex + * {
+    min-height: 100%;
     @include mixins.container;
 }
 
@@ -33,11 +23,7 @@
     // @todo support scaling with viewport width using font-size, keep in mind the room create
     //   button and overlap with content. Position can no longer be fixed.
     display: flex;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 3.5em;
+    height: auto;
     padding: 0;
     font-size: 16px;
 
