@@ -6,9 +6,8 @@
     <a
         mat-button
         routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}"
-        [ariaCurrentWhenActive]="'page'"
+        [class.active]="isTimerPageActive"
+        [attr.aria-current]="isTimerPageActive ? 'page' : 'false'"
     >
         <mat-icon>timer</mat-icon>
         <span class="label">Timer</span>
