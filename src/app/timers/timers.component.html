@@ -25,8 +25,8 @@
             (click)="changeSide(i)"
         >
             <svg-icon [src]="'/assets/squad/' + timer.unit.code + '.svg'"
-                      aria-hidden="true"
-                      [svgClass]="['squad-icon', timer.side]"></svg-icon>
+                aria-hidden="true"
+                [svgClass]="['squad-icon', timer.side]"></svg-icon>
         </button>
         <div class="time-container">
             <button
@@ -40,7 +40,7 @@
                 <mat-icon>remove_circle_outline</mat-icon>
             </button>
             <app-countdown [date]="timer.spawnsOn"
-                           [updateObservable]="updateObservable"></app-countdown>
+                [updateObservable]="updateObservable"></app-countdown>
             <button
                 type="button"
                 class="time-action"
