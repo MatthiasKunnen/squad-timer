@@ -8,6 +8,7 @@
         routerLink="/"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}"
+        [ariaCurrentWhenActive]="'page'"
     >
         <mat-icon>timer</mat-icon>
         <span class="label">Timer</span>
@@ -16,6 +17,7 @@
         mat-button
         routerLink="about"
         routerLinkActive="active"
+        [ariaCurrentWhenActive]="'page'"
     >
         <mat-icon>info</mat-icon>
         <span class="label">About</span>
