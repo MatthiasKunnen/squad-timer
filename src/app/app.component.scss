@@ -21,6 +21,7 @@
 .router-container {
     flex-grow: 1;
     overflow: auto;
+    scrollbar-gutter: stable both-edges;
 }
 
 ::ng-deep .router-flex + * {
