@@ -115,6 +115,34 @@ export class TimersComponent implements OnDestroy, OnInit {
 
         this.loadTimers();
         this.startTicking();
+
+        this.route.params.pipe(
+            takeUntil(this.destroyed),
+        ).subscribe(params => {
+            /*
+            Triggered on:
+            - First time component is loaded
+            - User creates/joins room and is redirected to /join/:roomName
+            - User disconnects from room
+            - User disconnects from room and presses back button -> reconnect user.
+            - User creates/joins room and presses back button -> disconnect user.
+             */
+            const roomName: string | undefined = params.roomName;
+
+            if (roomName === undefined) {
+                this.disconnect();
+            } else {
+                const roomUrl = new URL(window.location.href);
+                roomUrl.pathname = `/join/${roomName}`;
+                this.roomName = roomName;
+                this.roomUrl = roomUrl.href;
+                this.connectToSocket(socket => {
+                    socket.next(assignStrict(new JoinRoomRequest(), {
+                        name: roomName,
+                    }));
+                });
+            }
+        });
     }
 
     addMinutesToTimer(index: number, minutes: number): void {
@@ -195,19 +223,6 @@ export class TimersComponent implements OnDestroy, OnInit {
 
         if (storedTimers !== null) {
             this.timers = this.decoverto.type(Timer).rawToInstanceArray(storedTimers);
-        }
-
-        const roomName = this.route.snapshot.paramMap.get('roomName');
-        this.roomName = roomName;
-        if (roomName !== null) {
-            const roomUrl = new URL(window.location.href);
-            roomUrl.pathname = `/join/${roomName}`;
-            this.roomUrl = roomUrl.href;
-            this.connectToSocket(socket => {
-                socket.next(assignStrict(new JoinRoomRequest(), {
-                    name: roomName,
-                }));
-            });
         }
     }
 

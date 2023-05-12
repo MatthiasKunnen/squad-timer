@@ -17,6 +17,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouteReuseStrategy} from '@angular/router';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularSvgIconModule} from 'angular-svg-icon';
 import {Decoverto} from 'decoverto';
@@ -30,6 +31,7 @@ import {CountdownComponent} from './countdown/countdown.component';
 import {NotFoundComponent} from './error/not-found/not-found.component';
 import {CustomErrorHandler} from './error/sentry/custom-error.handler';
 import {HeaderComponent} from './layout/header/header.component';
+import {CustomRouteReuseStrategy} from './route-reuse-strategy';
 import {SettingsComponent} from './settings/settings.component';
 import {TimersComponent} from './timers/timers.component';
 import {UpdateService} from './update/update.service';
@@ -80,6 +82,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
             useClass: DateFnsDateAdapter,
         },
         UpdateService,
+        {provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy},
     ],
     bootstrap: [AppComponent],
 })
