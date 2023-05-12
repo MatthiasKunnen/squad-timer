@@ -4,8 +4,9 @@
         routerLink="/"
         class="logo button-image-content"
         matTooltip="Go to home"
-        aria-label="Go to home">
-        <img src="/assets/logo.png" alt="" width="340" height="150">
+        aria-label="Go to home"
+    >
+        <img ngSrc="/assets/logo.png" alt="" width="340" height="150">
     </a>
     <span class="flex-spacer"></span>
     <a
@@ -16,11 +17,14 @@
         aria-label="GitHub repository"
         matTooltip="View on GitHub">
         <img
-            src="/assets/icons/github-circle-transparent.svg"
+            ngSrc="/assets/icons/github-circle-transparent.svg"
             matButtonIcon
             class="github-logo"
             alt="GitHub logo"
-            aria-hidden="true">
+            aria-hidden="true"
+            height="20"
+            width="20"
+        />
         GitHub
     </a>
     <a
@@ -29,12 +33,16 @@
         href="https://github.com/MatthiasKunnen/squad-timer"
         rel="noopener nofollow"
         aria-label="GitHub repository"
-        matTooltip="View on GitHub">
+        matTooltip="View on GitHub"
+    >
         <img
-            src="/assets/icons/github-circle-transparent.svg"
+            ngSrc="/assets/icons/github-circle-transparent.svg"
             matButtonIcon
             class="github-logo"
             alt="GitHub logo"
-            aria-hidden="true">
+            aria-hidden="true"
+            height="20"
+            width="20"
+        />
     </a>
 </mat-toolbar>

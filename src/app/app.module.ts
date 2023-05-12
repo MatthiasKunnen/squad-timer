@@ -1,5 +1,5 @@
 import {ClipboardModule} from '@angular/cdk/clipboard';
-import {registerLocaleData} from '@angular/common';
+import {NgOptimizedImage, registerLocaleData} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import locale from '@angular/common/locales/en-BE';
 import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
@@ -69,6 +69,7 @@ const matFormFieldDefaultOptions: MatFormFieldDefaultOptions = {
         MatProgressSpinnerModule,
         MatToolbarModule,
         MatTooltipModule,
+        NgOptimizedImage,
         ReactiveFormsModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.serviceWorkerEnabled}),
         ToastrModule.forRoot(),
