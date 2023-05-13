@@ -73,7 +73,9 @@ export class TimersComponent implements OnDestroy, OnInit {
     units: Array<Unit>;
 
     /**
-     * When this observable emits, the time updates.
+     * When this observable emits, the time updates. It emits every second while the tab is visible.
+     * This allows us to not waste the user's resources when the tab is invisible and resume when
+     * the tab becomes visible again.
      */
     updateObservable: Observable<void>;
 
