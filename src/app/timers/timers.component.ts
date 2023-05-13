@@ -283,9 +283,10 @@ export class TimersComponent implements OnDestroy, OnInit {
         this.updateObservable = merge(
             fromEvent(document, 'visibilitychange').pipe(
                 startWith(null),
-                map(() => document.hidden),
-                switchMap(hidden => {
-                    if (hidden) {
+                map(() => document.visibilityState),
+                switchMap(visibilityState => {
+                    if (visibilityState === 'hidden') {
+                        // Stop emitting when tab is not visible
                         return EMPTY;
                     }
 
