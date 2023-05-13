@@ -39,6 +39,11 @@
         .actions {
             justify-self: end;
         }
+
+        @media (max-width: 359px) {
+            padding: 8px;
+            font-size: 1.8em;
+        }
     }
 }
 
@@ -85,6 +90,7 @@
         }
 
         @media (max-width: 599px) {
+
             ::ng-deep .mat-content {
                 display: flex;
                 justify-content: space-between;
@@ -98,7 +104,6 @@
             .share-panel-title-mobile {
                 display: block;
             }
-
         }
     }
 
@@ -126,5 +131,10 @@ svg-icon {
     @media (max-width: 719px) {
         width: 56px;
         height: 56px;
+    }
+
+    @media (max-width: 359px) {
+        width: 48px;
+        height: 48px;
     }
 }
