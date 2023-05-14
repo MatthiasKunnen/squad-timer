@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "build:env:pre": "ts-node --transpile-only --project build/tsconfig.json build/generate-environment.ts",
-        "build:production": "run-s build:*:pre && ng build --configuration production && run-s build:*:post",
+        "build:production": "run-s \"build:*:pre\" && ng build --configuration production && run-s \"build:*:post\"",
         "build:nginx:post": "ts-node --transpile-only --project build/tsconfig.json build/nginx.conf.ts --configuration production > dist/nginx.conf",
         "compile:ts": "run-p compile:ts:*",
         "compile:ts:app": "tsc -p tsconfig.app.strict.json",
