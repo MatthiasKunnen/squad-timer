@@ -13,6 +13,8 @@ jobs:
         uses: actions/setup-node@v3.5.1
         with:
           node-version-file: package.json
+      - name: Enable corepack
+        run: corepack enable
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
