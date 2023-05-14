@@ -60,6 +60,10 @@ export class WebsocketHandler {
                 this.sendResponse(ws, response);
             }));
 
+            ws.on('error', (error) => {
+                console.error(error);
+            });
+
             ws.on('close', () => {
                 this.rooms.forEach((room, name) => {
                     room.clients.delete(ws);

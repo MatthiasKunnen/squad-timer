@@ -26,3 +26,13 @@ import {onShutdown} from './utils/process.util';
         }
     });
 })().catch(console.error);
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('unhandledRejection', reason, promise);
+    process.exit(1);
+});
+
+process.on('uncaughtException', error => {
+    console.error('uncaughtException', error);
+    process.exit(1);
+});
