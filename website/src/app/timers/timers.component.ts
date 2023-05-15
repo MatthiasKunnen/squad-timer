@@ -133,11 +133,8 @@ export class TimersComponent implements OnDestroy, OnInit {
 
             if (roomName === undefined) {
                 this.disconnect();
-            } else {
-                const roomUrl = new URL(window.location.href);
-                roomUrl.pathname = `/join/${roomName}`;
-                this.roomName = roomName;
-                this.roomUrl = roomUrl.href;
+            } else if (roomName !== this.roomName) {
+                this.setRoomName(roomName);
                 this.connectToSocket();
             }
         });
@@ -372,6 +369,7 @@ export class TimersComponent implements OnDestroy, OnInit {
                     timers: this.timers,
                 }));
             } else if (message instanceof CreateRoomResponse) {
+                this.setRoomName(message.name);
                 this.router.navigate(['join', message.name]).catch(Logger.errorWrap);
             } else if (message instanceof UpdateRoomTimersResponse) {
                 this.timers = message.timers;
@@ -383,5 +381,16 @@ export class TimersComponent implements OnDestroy, OnInit {
         });
 
         this.socket = socket;
+    }
+
+    private setRoomName(roomName: string): void {
+        if (this.roomName === roomName) {
+            return;
+        }
+
+        const roomUrl = new URL(window.location.href);
+        roomUrl.pathname = `/join/${roomName}`;
+        this.roomName = roomName;
+        this.roomUrl = roomUrl.href;
     }
 }
