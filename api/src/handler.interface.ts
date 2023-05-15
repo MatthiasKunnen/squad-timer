@@ -1,6 +1,6 @@
 import type * as WebSocket from 'ws';
 
-import type {WsRequest} from '../shared/ws-requests.model';
+import type {WsRequest} from '../../shared';
 
 export interface Room {
     clients: Set<WebSocket>;

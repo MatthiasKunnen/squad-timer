@@ -14,22 +14,6 @@ overrides:
 
   -
     files:
-      - 'api/**/*.ts'
-    env:
-      node: true
-    extends:
-      - '@matthiaskunnen/eslint-config-typescript-node'
-    parser: '@typescript-eslint/parser'
-    parserOptions:
-      project:
-        - tsconfig.lint.json
-      sourceType: module
-    rules:
-      '@typescript-eslint/no-base-to-string': off
-      no-console: off
-
-  -
-    files:
       - 'build/**/*.ts'
     env:
       node: true
@@ -40,19 +24,6 @@ overrides:
         - build/tsconfig.json
     rules:
       '@typescript-eslint/no-var-requires': off
-
-  -
-    files:
-      - 'shared/**/*.ts'
-    extends:
-      - '@matthiaskunnen/eslint-config-typescript'
-    parser: '@typescript-eslint/parser'
-    parserOptions:
-      project:
-        - tsconfig.lint.json
-      sourceType: module
-    rules:
-      no-console: error
 
   -
     files:

@@ -29,22 +29,21 @@ import {
 import type {WebSocketSubject} from 'rxjs/webSocket';
 import {webSocket} from 'rxjs/webSocket';
 
-import {Timer, Unit} from '../../../shared/timer.model';
-import {assignStrict} from '../../../shared/utils/object.util';
 import {
+    assignStrict,
     CreateRoomRequest,
-    JoinRoomRequest,
-    ListTimersRequest,
-    UpdateRoomTimersRequest,
-    WsRequest,
-} from '../../../shared/ws-requests.model';
-import {
     CreateRoomResponse,
+    JoinRoomRequest,
     JoinRoomResponse,
+    ListTimersRequest,
     ListTimersResponse,
+    Timer,
+    Unit,
+    UpdateRoomTimersRequest,
     UpdateRoomTimersResponse,
+    WsRequest,
     WsResponse,
-} from '../../../shared/ws-responses.model';
+} from '../../../../shared';
 import {environment} from '../../environments/environment';
 import {Logger} from '../utils/logger.util';
 

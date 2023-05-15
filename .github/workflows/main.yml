@@ -29,10 +29,13 @@ jobs:
       -
         name: Install dependencies
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
       -
         name: Lint
         run: yarn run lint
       -
-        name: Build
-        run: yarn run build:production
+        name: Build website
+        run: yarn workspace website run build:production
+      -
+        name: Compile API
+        run: yarn workspace api run compile:ts

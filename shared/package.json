@@ -1,0 +1,14 @@
+{
+    "name": "shared",
+    "scripts": {
+        "lint": "eslint index.ts \"src/**/*.ts\""
+    },
+    "devDependencies": {
+        "@matthiaskunnen/eslint-config-typescript": "^5.0.0",
+        "eslint": "~8.39.0"
+    },
+    "engines": {
+        "node": "^18.16.0",
+        "yarn": "3.5.1"
+    }
+}

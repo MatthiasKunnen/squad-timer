@@ -4,10 +4,10 @@ function mapFilenames(filenames) {
 
 module.exports = {
     '**/*.scss': (filenames) => [
-        `stylelint --fix ${mapFilenames(filenames)}`,
+        `yarn run lint:css --fix ${mapFilenames(filenames)}`,
     ],
     '**/*.ts': (filenames) => [
-        `eslint --fix --cache ${mapFilenames(filenames)}`,
+        `yarn run lint:ts --fix --cache ${mapFilenames(filenames)}`,
         `yarn run compile:ts`,
     ],
 };

@@ -8,7 +8,7 @@
         "target": "ES2022",
     },
     "compilerOptions": {
-        "outDir": "./out-tsc/app"
+        "outDir": "./out-tsc/app",
     },
     "files": [
         "src/main.ts",

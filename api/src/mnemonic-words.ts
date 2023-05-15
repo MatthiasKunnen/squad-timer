@@ -1,4 +1,4 @@
-import {shuffle} from '../shared/utils/array.util';
+import {shuffle} from '../../shared';
 
 const words = [
     'acrobat',

@@ -3,22 +3,21 @@ import {createServer} from 'http';
 
 import * as WebSocket from 'ws';
 
-import {assignStrict} from '../shared/utils/object.util';
+import {
+    assignStrict,
+    CreateRoomResponse,
+    JoinRoomResponse,
+    ListTimersRequest,
+    ListTimersResponse,
+    UpdateRoomTimersResponse,
+    WsRequest,
+    WsResponse,
+} from '../../shared';
 import type {
     CreateRoomRequest,
     JoinRoomRequest,
     UpdateRoomTimersRequest,
-} from '../shared/ws-requests.model';
-import {
-    ListTimersRequest,
-    WsRequest,
-} from '../shared/ws-requests.model';
-import {
-    CreateRoomResponse,
-    JoinRoomResponse,
-    ListTimersResponse, UpdateRoomTimersResponse,
-    WsResponse,
-} from '../shared/ws-responses.model';
+} from '../../shared';
 import type {ActionInfo, Room} from './handler.interface';
 import {decoverto} from './instances/decoverto.instance';
 import {getRandomMnemonic} from './mnemonic-words';

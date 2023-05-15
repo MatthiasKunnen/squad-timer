@@ -1,0 +1,29 @@
+---
+
+env:
+  es6: true
+
+overrides:
+  -
+    files:
+      - '*.js'
+    env:
+      node: true
+    extends:
+      - '@matthiaskunnen/eslint-config-base'
+
+  -
+    files:
+      - '*.ts'
+    env:
+      node: true
+    extends:
+      - '@matthiaskunnen/eslint-config-typescript-node'
+    parser: '@typescript-eslint/parser'
+    parserOptions:
+      project:
+        - tsconfig.json
+      sourceType: module
+    rules:
+      '@typescript-eslint/no-base-to-string': off
+      no-console: off

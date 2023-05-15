@@ -1,0 +1,17 @@
+{
+    "extends": "../tsconfig.base.json",
+    "compilerOptions": {
+        "declaration": false,
+        "downlevelIteration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "lib": [
+            "ES2022",
+            "dom"
+        ],
+        "module": "ES2022",
+        "moduleResolution": "node",
+        "outDir": "./dist/out-tsc",
+    }
+}

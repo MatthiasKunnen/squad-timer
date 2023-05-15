@@ -1,0 +1,19 @@
+---
+
+env:
+  es6: true
+
+overrides:
+  -
+    files:
+      - '*.ts'
+    extends:
+      - '@matthiaskunnen/eslint-config-typescript'
+    parser: '@typescript-eslint/parser'
+    parserOptions:
+      project:
+        - tsconfig.lint.json
+      sourceType: module
+    rules:
+      'import/no-extraneous-dependencies': off
+      no-console: error
