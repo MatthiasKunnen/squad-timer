@@ -33,10 +33,6 @@ jobs:
       -
         name: Lint
         run: yarn run lint
-        env:
-          CI: true
       -
         name: Build
         run: yarn run build:production
-        env:
-          CI: true
