@@ -138,11 +138,7 @@ export class TimersComponent implements OnDestroy, OnInit {
                 roomUrl.pathname = `/join/${roomName}`;
                 this.roomName = roomName;
                 this.roomUrl = roomUrl.href;
-                this.connectToSocket(socket => {
-                    socket.next(assignStrict(new JoinRoomRequest(), {
-                        name: roomName,
-                    }));
-                });
+                this.connectToSocket();
             }
         });
     }
@@ -250,9 +246,7 @@ export class TimersComponent implements OnDestroy, OnInit {
             return;
         }
 
-        this.connectToSocket(socket => {
-            socket.next(new CreateRoomRequest());
-        });
+        this.connectToSocket();
     }
 
     private loadTimers(): void {
@@ -310,7 +304,7 @@ export class TimersComponent implements OnDestroy, OnInit {
         );
     }
 
-    private connectToSocket(onOpen: (socket: WebSocketHandler) => void): void {
+    private connectToSocket(): void {
         const responseTypeHandler = this.decoverto.type(WsResponse);
         const requestTypeHandler = this.decoverto.type(WsRequest);
         const socket = webSocket<WebSocketData>({
@@ -334,7 +328,14 @@ export class TimersComponent implements OnDestroy, OnInit {
             openObserver: {
                 next: () => {
                     this.socketStatus = 'connected';
-                    onOpen(socket);
+
+                    if (this.roomName === null) {
+                        socket.next(new CreateRoomRequest());
+                    } else {
+                        socket.next(assignStrict(new JoinRoomRequest(), {
+                            name: this.roomName,
+                        }));
+                    }
                 },
             },
             serializer: message => {
