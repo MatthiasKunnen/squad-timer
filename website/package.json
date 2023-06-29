@@ -6,6 +6,8 @@
         "build:production": "run-s \"build:*:pre\" && ng build --configuration production && run-s \"build:*:post\"",
         "build:nginx:post": "ts-node --transpile-only --project build/tsconfig.json build/nginx.conf.ts --configuration production > dist/nginx.conf",
         "compile:ts": "tsc -p tsconfig.app.strict.json",
+        "docker:build": "docker buildx build . -f ./Dockerfile --build-arg REVISION=$(git rev-parse HEAD)",
+        "docker:build-and-run": "docker run -it -p 127.0.0.1:8080:80/tcp $(yarn run docker:build -q)",
         "lint": "npm-run-all -cp \"lint:css {@}\" \"lint:ts {@}\" -- ",
         "lint:css": "stylelint \"src/**/*.scss\"",
         "lint:ts": "eslint \"src/**/*.{html,ts}\"  \"build/**/*.ts\"",

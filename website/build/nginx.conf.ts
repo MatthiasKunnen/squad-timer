@@ -1,9 +1,10 @@
 // Build nginx.conf
 // Why? because nginx will perform best with a static config
 
-import {ArgumentParser} from 'argparse';
+import * as fs from 'fs';
+import * as path from 'path';
 
-import type {Environment} from '../src/environments/environment.interface';
+import {ArgumentParser} from 'argparse';
 
 const parser = new ArgumentParser({
     addHelp: true,
@@ -15,31 +16,49 @@ parser.addArgument('--configuration', {
     help: 'The configuration (local, review, production, ...)',
 });
 
-const args: {
-    configuration: string;
-} = parser.parseKnownArgs()[0];
+const fileMapping = new Map<string, {headers: Record<string, string>}>([
+    ['3rdpartylicenses.txt', {headers: {'Cache-Control': 'public, max-age=86400'}}],
+    ['browserconfig.xml', {headers: {'Cache-Control': 'public, max-age=86400'}}],
+    ['favicon.ico', {headers: {'Cache-Control': 'public, max-age=86400'}}],
+    ['index.html', {
+        headers: {
+            'Cache-Control': 'no-store',
+            'Referrer-Policy': 'same-origin',
+            'Strict-Transport-Security': 'max-age=63072000',
+            'X-Content-Type-Options': 'nosniff',
+            'X-XSS-Protection': '1; mode=block',
+        },
+    }],
+    ['ngsw-worker.js', {headers: {'Cache-Control': 'no-store'}}],
+    ['ngsw.json', {headers: {'Cache-Control': 'no-store'}}],
+    ['safety-worker.js', {headers: {'Cache-Control': 'no-store'}}],
+    ['site.webmanifest', {headers: {'Cache-Control': 'public, max-age=86400'}}],
+    ['worker-basic.min.js', {headers: {'Cache-Control': 'no-store'}}],
+]);
 
-const environmentFile = `../src/environments/environment.${args.configuration}.ts`;
-(global as any).window = {}; // window is used in the environment. Fake it
-const environment: Environment = require(environmentFile).environment;
+const files = fs.readdirSync(path.join(__dirname, '..', 'dist', 'public'));
+const immutableFilesRegex = /\.\w{16}\.(css|js)/u;
 
-// language=Nginx Configuration
-const headers = environment.production
-    ? `\
-            add_header Referrer-Policy "same-origin";
-            add_header Strict-Transport-Security "max-age=63072000";
-            add_header X-Content-Type-Options "nosniff";
-            add_header X-XSS-Protection "1; mode=block";
-    `.trimRight()
-    : '';
+for (const file of files) {
+    if (immutableFilesRegex.test(file)) {
+        fileMapping.set(file, {
+            headers: {
+                'Cache-Control': 'public, max-age=31536000, immutable',
+            },
+        });
+    }
+}
 
 // language=Nginx Configuration
 process.stdout.write(`
-daemon off;
+user  nginx;
+worker_processes  auto;
+
+error_log  /dev/stderr notice;
+pid        /var/run/nginx.pid;
 
 events {
-    use epoll;
-    accept_mutex on;
+    worker_connections  1024;
 }
 
 http {
@@ -47,74 +66,68 @@ http {
     gzip_comp_level 6;
     gzip_min_length 512;
     gzip_proxied any;
-    gzip_types text/css text/plain application/javascript image/svg+xml;
+    gzip_types
+        application/json
+        application/manifest+json
+        image/svg+xml
+        text/css
+        text/javascript
+        text/plain;
 
-    server_tokens off;
-
-    log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
-    access_log <%= ENV['NGINX_ACCESS_LOG_PATH'] || 'logs/nginx/access.log' %> l2met;
-    error_log <%= ENV['NGINX_ERROR_LOG_PATH'] || 'logs/nginx/error.log' %>;
-
+    log_format main
+        'access: [$time_local] ip=$remote_addr r="$request" '
+        's=$status b=$body_bytes_sent ref="$http_referer" ua="$http_user_agent" '
+        'rt=$request_time rl=$request_length '
+        'rid=$request_id';
+    access_log /dev/stdout main;
 
     include mime.types;
     default_type application/octet-stream;
+    types {
+        # Amend the mime.types
+        application/manifest+json webmanifest;
+        # application/javascript is obsolete, see https://www.rfc-editor.org/rfc/rfc9239. This has
+        # not yet been updated by nginx, see https://trac.nginx.org/nginx/ticket/1407.
+        text/javascript js;
+    }
+
     sendfile on;
-
-    # Must read the body in 5 seconds.
-    client_body_timeout <%= ENV['NGINX_CLIENT_BODY_TIMEOUT'] || 5 %>;
-
-    map $http_upgrade $connection_upgrade {
-        default upgrade;
-        '' close;
-    }
-
-    upstream api {
-        server 127.0.0.1:5050;
-    }
+    server_tokens off;
 
     server {
-        listen <%= ENV["PORT"] %>;
+        listen 80;
+        listen [::]:80;
         server_name _;
-        keepalive_timeout 5;
-        client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+        client_max_body_size 1M;
 
-        root /app/dist/public;
+        root /usr/share/nginx/html;
 
         index index.html;
 
         location / {
-            if ($http_x_forwarded_proto != "https") {
-                return 301 https://$host$request_uri;
-            }
-
-            # If none of the other blocks match: serve file if it exists, index.html otherwise
+            # Serve file if it exists, index.html otherwise
             try_files $uri /index.html;
-${headers}
+        }
+
+        location /assets {
             add_header Cache-Control "public, max-age=604800";
         }
 
-        location /api {
-            proxy_pass http://api;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection $connection_upgrade;
-            proxy_set_header Host $host;
+        location = /readyz {
+            default_type text/plain;
+            return 200 'ready';
         }
-
-        location = /index.html {
-${headers}
-            add_header Cache-Control "no-store";
-        }
-
-        location ~* ^/[^.]+\\.(js|json|webmanifest)$ {
-${headers}
-            add_header Cache-Control "no-cache";
-        }
-
-        location ~* \\.\\w+\\.(css|js)$ {
-${headers}
-            add_header Cache-Control "public, max-age=31536000, immutable";
-        }
+${
+        Array.from(fileMapping.entries(), ([file, config]) => {
+            // language=Nginx Configuration
+            return `
+        location = /${file} {
+${
+                Object.entries(config.headers).map(([headerName, headerValue]) => {
+                    return `            add_header ${headerName} "${headerValue}";`;
+                }).join('\n')}
+        }`;
+        }).join('\n')}
     }
 }
-`.trimLeft());
+`);
