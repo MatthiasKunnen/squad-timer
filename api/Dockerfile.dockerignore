@@ -1,0 +1,14 @@
+# Wildcards exceptions do not work, https://github.com/moby/moby/issues/30018
+*
+!.yarn/plugins
+!.yarnrc.yml
+!api/package.json
+!api/src
+!api/tsconfig.json
+!api/tsconfig.strict.json
+!package.json
+!shared/index.ts
+!shared/package.json
+!shared/src
+!tsconfig.base.json
+!yarn.lock

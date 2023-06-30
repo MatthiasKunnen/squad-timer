@@ -3,6 +3,8 @@
     "version": "0.0.0",
     "scripts": {
         "compile:ts": "tsc -p tsconfig.strict.json",
+        "docker:build": "docker buildx build ../ -f Dockerfile --build-arg REVISION=$(git rev-parse HEAD) -t squad-timer/api",
+        "docker:build-and-run": "docker run -it -p 127.0.0.1:5050:80/tcp $(yarn run docker:build -q)",
         "lint": "eslint \"src/**/*.ts\"",
         "start": "nodemon -e '*' -w ./src -w ./shared -w ./node_modules -x yarn run start:local",
         "start:base": "TS_NODE_PROJECT=tsconfig.json node --disable-proto=delete -r ts-node/register",
