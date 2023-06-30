@@ -8606,16 +8606,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-toastr@npm:^16.2.0":
-  version: 16.2.0
-  resolution: "ngx-toastr@npm:16.2.0"
+"ngx-toastr@npm:^17.0.2":
+  version: 17.0.2
+  resolution: "ngx-toastr@npm:17.0.2"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/common": ">=14.0.0-0"
-    "@angular/core": ">=14.0.0-0"
-    "@angular/platform-browser": ">=14.0.0-0"
-  checksum: 3ba49f91cc6481fcc8b14e81aac5ea75a827e880f3e3beb5f494c41832a91e610bee5a0112475527cd336c3ea83c0bc5711d29fca4db363d38f2930af8d5fedd
+    "@angular/common": ">=16.0.0-0"
+    "@angular/core": ">=16.0.0-0"
+    "@angular/platform-browser": ">=16.0.0-0"
+  checksum: 498c07f331de86c03509a6ca67a8f8a0d3d94ac5d504fe6b5c4e78de7af0452bf5e11fa5f8b40ad127a313a8b4a4828103760f47a4cd574947c4ce96f88fd74a
   languageName: node
   linkType: hard
 
@@ -11853,7 +11853,7 @@ __metadata:
     date-fns: ^2.16.1
     decoverto: ^2.0.0
     eslint: ~8.39.0
-    ngx-toastr: ^16.2.0
+    ngx-toastr: ^17.0.2
     npm-run-all: ^4.1.5
     postcss: ^8.4.5
     postcss-scss: ^4.0.2
