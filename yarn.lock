@@ -4105,6 +4105,7 @@ __metadata:
     nodemon: ^2.0.22
     npm-run-all: ^4.1.5
     reflect-metadata: ^0.1.13
+    shared: "workspace:^"
     ts-node: ~7.0.0
     tslib: ^2.3.1
     typescript: ~5.0.4
@@ -10393,7 +10394,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shared@workspace:shared":
+"shared@workspace:^, shared@workspace:shared":
   version: 0.0.0-use.local
   resolution: "shared@workspace:shared"
   dependencies:
@@ -11859,6 +11860,7 @@ __metadata:
     postcss-scss: ^4.0.2
     reflect-metadata: ^0.1.13
     rxjs: ^6.6.3
+    shared: "workspace:^"
     stylelint: ^14.2.0
     stylelint-config-standard-scss: ^3.0.0
     stylelint-order: ^3.1.1
