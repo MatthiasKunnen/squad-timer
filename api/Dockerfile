@@ -13,7 +13,7 @@ RUN --mount=type=cache,target=/root/yarn-cache YARN_CACHE_FOLDER=/root/yarn-cach
     yarn workspaces focus api
 
 COPY . .
-RUN yarn workspace api run compile:ts
+RUN yarn workspace api run build
 RUN --mount=type=cache,target=/root/yarn-cache YARN_CACHE_FOLDER=/root/yarn-cache \
     yarn workspaces focus api --production
 
