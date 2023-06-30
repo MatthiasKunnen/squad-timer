@@ -4098,7 +4098,6 @@ __metadata:
     "@matthiaskunnen/eslint-config-typescript-node": ^5.0.0
     "@types/node": ^18.16.18
     "@types/ws": ^8.5.4
-    argparse: ^1.0.0
     date-fns: ^2.16.1
     decoverto: ^2.0.0
     eslint: ~8.39.0
