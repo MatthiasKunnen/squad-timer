@@ -12,23 +12,22 @@
     },
     "private": true,
     "dependencies": {
-        "@types/node": "^18.16.18",
-        "@types/ws": "^8.5.4",
         "date-fns": "^2.16.1",
         "decoverto": "^2.0.0",
-        "npm-run-all": "^4.1.5",
         "reflect-metadata": "^0.1.13",
         "shared": "workspace:^",
-        "ts-node": "~7.0.0",
         "tslib": "^2.3.1",
-        "typescript": "~5.0.4",
         "ws": "^8.13.0"
     },
     "devDependencies": {
         "@matthiaskunnen/eslint-config-typescript-node": "^5.0.0",
+        "@types/node": "^18.16.18",
+        "@types/ws": "^8.5.4",
         "eslint": "~8.39.0",
         "nodemon": "^2.0.22",
-        "npm-run-all": "^4.1.5"
+        "npm-run-all": "^4.1.5",
+        "ts-node": "~7.0.0",
+        "typescript": "~5.0.4"
     },
     "engines": {
         "node": "^18.16.0",
