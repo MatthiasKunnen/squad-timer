@@ -2,9 +2,10 @@
     "name": "website",
     "version": "0.0.0",
     "scripts": {
-        "build": "run-s \"build:*:pre\" && ng build --configuration $ENV && run-s \"build:*:post\"",
-        "build:env:pre": "ts-node --transpile-only --project build/tsconfig.json build/generate-environment.ts",
-        "build:nginx:post": "ts-node --transpile-only --project build/tsconfig.json build/nginx.conf.ts --configuration $ENV > dist/nginx.conf",
+        "build": "run-s build:env build:angular build:nginx",
+        "build:angular": "ng build --configuration $ENV",
+        "build:env": "ts-node --transpile-only --project build/tsconfig.json build/generate-environment.ts",
+        "build:nginx": "ts-node --transpile-only --project build/tsconfig.json build/nginx.conf.ts --configuration $ENV > dist/nginx.conf",
         "build:production": "ENV=production yarn run build",
         "compile:ts": "tsc -p tsconfig.app.strict.json",
         "docker:build": "docker buildx build . -f ./Dockerfile --build-arg REVISION=$(git rev-parse HEAD)",
