@@ -12,7 +12,7 @@
     },
     "private": true,
     "dependencies": {
-        "@types/node": "^12.11.1",
+        "@types/node": "^18.16.18",
         "@types/ws": "^8.5.4",
         "argparse": "^1.0.0",
         "date-fns": "^2.16.1",

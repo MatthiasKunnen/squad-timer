@@ -3365,10 +3365,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^12.11.1":
-  version: 12.12.56
-  resolution: "@types/node@npm:12.12.56"
-  checksum: 58519dc14c1b188e7ff2a33255ed9cef0158913e2d027c3a94a2d217d05464ed7916f864bf952cab21d0c166217050bfb564369cec46d5d373822951f0c1b18d
+"@types/node@npm:*, @types/node@npm:^18.16.18":
+  version: 18.16.18
+  resolution: "@types/node@npm:18.16.18"
+  checksum: d32d8a0a04cd3f5ecb361bcb42f3a07623881ac90d680e06bf626defb3c663a94860d11690babe607cfe67265eceeb8a59ba5fe40c0e49f5a1b01e0088640469
   languageName: node
   linkType: hard
 
@@ -4096,7 +4096,7 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@matthiaskunnen/eslint-config-typescript-node": ^5.0.0
-    "@types/node": ^12.11.1
+    "@types/node": ^18.16.18
     "@types/ws": ^8.5.4
     argparse: ^1.0.0
     date-fns: ^2.16.1
@@ -11846,7 +11846,7 @@ __metadata:
     "@sentry/browser": ^5.19.1
     "@sentry/integrations": ^5.19.1
     "@types/argparse": ^1.0.0
-    "@types/node": ^12.11.1
+    "@types/node": ^18.16.18
     angular-error-repository: ^2.0.0
     angular-svg-icon: ^16.0.0
     argparse: ^1.0.0
