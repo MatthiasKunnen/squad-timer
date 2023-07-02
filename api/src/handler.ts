@@ -141,6 +141,16 @@ export class WebsocketHandler {
             return;
         }
 
+        if (!room.clients.has(info.ws)) {
+            // @todo What should be done when receiving an UpdateRoomTimers request from a socket
+            //   that is not a member of the room? Refuse? Add them to the room? This should only
+            //   occur in case of a programming oversight or malicious action.
+            console.warn(
+                `Received UpdateRoomTimers request from user that is not a member of room '${
+                    info.message.name}'.`,
+            );
+        }
+
         room.clients.forEach(client => {
             if (client !== info.ws) {
                 this.sendResponse(client, assignStrict(new UpdateRoomTimersResponse(), {
