@@ -10,6 +10,7 @@ import {
     fromEvent,
     merge,
     Observable,
+    of,
     ReplaySubject,
     retry,
     Subject,
@@ -18,6 +19,7 @@ import {
 import {
     debounceTime,
     map,
+    repeat,
     shareReplay,
     startWith,
     switchMap,
@@ -68,6 +70,7 @@ export class TimersComponent implements OnDestroy, OnInit {
     socketStatus: 'connected' | 'connecting' | 'disconnected' = 'connecting';
     timers: Array<Timer> = [];
     units: Array<Unit>;
+    userDisconnected = false;
     websocketUrl: string;
 
     /**
@@ -202,6 +205,7 @@ export class TimersComponent implements OnDestroy, OnInit {
     }
 
     disconnect(): void {
+        this.userDisconnected = true;
         this.socket?.complete();
         this.socket = null;
         this.roomUrl = null;
@@ -305,6 +309,7 @@ export class TimersComponent implements OnDestroy, OnInit {
     }
 
     private connectToSocket(): void {
+        this.userDisconnected = false;
         const responseTypeHandler = this.decoverto.type(WsResponse);
         const requestTypeHandler = this.decoverto.type(WsRequest);
         const socket = webSocket<WebSocketData>({
@@ -356,7 +361,7 @@ export class TimersComponent implements OnDestroy, OnInit {
         });
 
         socket.pipe(
-            retry({
+            retry({ // Reconnect on error
                 delay: () => {
                     this.socketStatus = 'disconnected';
 
@@ -365,6 +370,13 @@ export class TimersComponent implements OnDestroy, OnInit {
                             this.socketStatus = 'connecting';
                         }),
                     );
+                },
+            }),
+            repeat({ // Reconnect on clean close
+                delay: () => {
+                    return this.userDisconnected
+                        ? EMPTY // Do not reconnect if the user initiated the disconnect
+                        : of(0); // Reconnect if the server initiated the disconnect
                 },
             }),
             takeUntil(this.destroyed),
