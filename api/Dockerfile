@@ -40,5 +40,6 @@ ARG REVISION
 ENV REVISION=$REVISION
 LABEL org.opencontainers.image.revision=$REVISION
 
+ENV PORT=80
 EXPOSE 80
 CMD ["node", "--disable-proto=delete", "--enable-source-maps", "api/src/server.js"]
