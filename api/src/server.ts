@@ -16,6 +16,10 @@ import {onShutdown} from './utils/process.util';
                 response.writeHead(200, {'Content-Type': 'text/plain'});
                 response.end('Welcome to the Squad Timer API!\n');
                 break;
+            case '/readyz':
+                response.writeHead(200, {'Content-Type': 'text/plain'});
+                response.end('ready\n');
+                break;
             case '/websocket':
                 response.writeHead(400, {'Content-Type': 'text/plain'});
                 response.end('Websocket upgrade request expected\n');
