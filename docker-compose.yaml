@@ -1,0 +1,19 @@
+# This Docker Compose enables testing the API and website images as they would be run in production.
+# The proxy service does the same thing that is done by the ingress and Angular.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+
+  website:
+    build:
+      context: website
+      dockerfile: Dockerfile
+
+  proxy:
+    build:
+      context: dev-proxy
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
