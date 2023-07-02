@@ -11,15 +11,13 @@ import {
     merge,
     Observable,
     ReplaySubject,
+    retry,
     Subject,
     timer,
 } from 'rxjs';
 import {
     debounceTime,
-    delay,
     map,
-    mapTo,
-    retryWhen,
     shareReplay,
     startWith,
     switchMap,
@@ -290,7 +288,7 @@ export class TimersComponent implements OnDestroy, OnInit {
             ),
             this.manualUpdateSubject,
         ).pipe(
-            mapTo(undefined),
+            map(() => undefined),
             tap(() => {
                 // Remove old timers
                 const trimmedTimers = this.timers.filter(t => {
@@ -358,14 +356,16 @@ export class TimersComponent implements OnDestroy, OnInit {
         });
 
         socket.pipe(
-            retryWhen(errors => {
-                this.socketStatus = 'disconnected';
-                return errors.pipe(
-                    delay(2000),
-                    tap(() => {
-                        this.socketStatus = 'connecting';
-                    }),
-                );
+            retry({
+                delay: () => {
+                    this.socketStatus = 'disconnected';
+
+                    return timer(2000).pipe(
+                        tap(() => {
+                            this.socketStatus = 'connecting';
+                        }),
+                    );
+                },
             }),
             takeUntil(this.destroyed),
         ).subscribe(message => {

@@ -10130,21 +10130,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.1, rxjs@npm:^7.5.5, rxjs@npm:^7.8.0":
+"rxjs@npm:7.8.1, rxjs@npm:^7.5.5, rxjs@npm:^7.8.0, rxjs@npm:^7.8.1":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
     tslib: ^2.1.0
   checksum: de4b53db1063e618ec2eca0f7965d9137cabe98cf6be9272efe6c86b47c17b987383df8574861bcced18ebd590764125a901d5506082be84a8b8e364bf05f119
-  languageName: node
-  linkType: hard
-
-"rxjs@npm:^6.6.3":
-  version: 6.6.7
-  resolution: "rxjs@npm:6.6.7"
-  dependencies:
-    tslib: ^1.9.0
-  checksum: bc334edef1bb8bbf56590b0b25734ba0deaf8825b703256a93714308ea36dff8a11d25533671adf8e104e5e8f256aa6fdfe39b2e248cdbd7a5f90c260acbbd1b
   languageName: node
   linkType: hard
 
@@ -11877,7 +11868,7 @@ __metadata:
     postcss: ^8.4.5
     postcss-scss: ^4.0.2
     reflect-metadata: ^0.1.13
-    rxjs: ^6.6.3
+    rxjs: ^7.8.1
     shared: "workspace:^"
     stylelint: ^14.2.0
     stylelint-config-standard-scss: ^3.0.0
