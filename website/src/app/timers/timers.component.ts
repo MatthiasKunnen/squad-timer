@@ -70,6 +70,7 @@ export class TimersComponent implements OnDestroy, OnInit {
     socketStatus: 'connected' | 'connecting' | 'disconnected' = 'connecting';
     timers: Array<Timer> = [];
     units: Array<Unit>;
+    websocketUrl: string;
 
     /**
      * When this observable emits, the time updates. It emits every second while the tab is visible.
@@ -86,6 +87,10 @@ export class TimersComponent implements OnDestroy, OnInit {
         private readonly router: Router,
         private readonly decoverto: Decoverto,
     ) {
+        const websocketUrl = new URL(window.location.href);
+        websocketUrl.protocol = websocketUrl.protocol === 'https:' ? 'wss:' : 'ws:';
+        websocketUrl.pathname = environment.websocketPath;
+        this.websocketUrl = websocketUrl.toString();
     }
 
     ngOnDestroy(): void {
@@ -349,7 +354,7 @@ export class TimersComponent implements OnDestroy, OnInit {
 
                 return 'null';
             },
-            url: environment.websocketUrl,
+            url: this.websocketUrl,
         });
 
         socket.pipe(

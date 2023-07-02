@@ -10,5 +10,9 @@ export interface Environment {
         enabled: false;
     };
     serviceWorkerEnabled: boolean;
-    websocketUrl: string;
+    /**
+     * The path for the websocket connection. The protocol should be chosen based on the protocol of
+     * the current Document's Location.
+     */
+    websocketPath: string;
 }
