@@ -96,6 +96,10 @@ export class WebsocketHandler {
             roomName = getRandomMnemonic(3);
         } while (this.rooms.has(roomName));
 
+        this.rooms.set(roomName, {
+            clients: new Set([info.ws]),
+        });
+
         return assignStrict(new CreateRoomResponse(), {
             name: roomName,
         });
