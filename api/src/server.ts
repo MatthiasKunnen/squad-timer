@@ -7,7 +7,12 @@ import {onShutdown} from './utils/process.util';
 (async () => {
     const wsHandler = new WebsocketHandler();
 
-    const port = 5050;
+    const port = Number(process.env.PORT ?? 5050);
+
+    if (isNaN(port)) {
+        throw new Error(`Environment variable PORT is not a number: '${process.env.PORT}'`);
+    }
+
     wsHandler.server.listen(port, () => {
         console.log(`Server is listening on port ${port}`);
     });
