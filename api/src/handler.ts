@@ -1,5 +1,5 @@
-import type {Server} from 'http';
-import {createServer} from 'http';
+import type {IncomingMessage} from 'node:http';
+import type {Duplex} from 'node:stream';
 
 import * as WebSocket from 'ws';
 
@@ -26,16 +26,14 @@ type ActionHandler = (info: ActionInfo<any>) => WsResponse | undefined;
 
 export class WebsocketHandler {
 
-    readonly server: Server;
     private readonly requestTypeHandler = decoverto.type(WsRequest);
     private readonly responseTypeHandler = decoverto.type(WsResponse);
     private readonly rooms = new Map<string, Room>();
     private readonly wss: WebSocket.Server;
 
     constructor() {
-        this.server = createServer();
         this.wss = new WebSocket.Server({
-            server: this.server,
+            noServer: true,
         });
 
         const actionMap = new Map<string, ActionHandler>([
@@ -87,7 +85,15 @@ export class WebsocketHandler {
             // Close existing connections
             client.close();
         });
-        this.server.close(); // Close the HTTP server
+    }
+
+    /**
+     * Handle a HTTP upgrade request to upgrade the request to a Websocket connection.
+     */
+    handleUpgrade(request: IncomingMessage, socket: Duplex, head: Buffer) {
+        this.wss.handleUpgrade(request, socket, head, (ws) => {
+            this.wss.emit('connection', ws, request);
+        });
     }
 
     createRoom(info: ActionInfo<CreateRoomRequest>): CreateRoomResponse {
