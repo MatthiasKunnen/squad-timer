@@ -11,7 +11,9 @@ LABEL org.opencontainers.image.revision=$REVISION
 LABEL org.opencontainers.image.description="The frontend for Squad Timer"
 LABEL org.opencontainers.image.title="Squad Timer frontend"
 
-COPY ./dist/public /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+
+COPY ./dist/public ./
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
