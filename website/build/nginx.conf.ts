@@ -62,17 +62,7 @@ events {
 }
 
 http {
-    gzip on;
-    gzip_comp_level 6;
-    gzip_min_length 512;
-    gzip_proxied any;
-    gzip_types
-        application/json
-        application/manifest+json
-        image/svg+xml
-        text/css
-        text/javascript
-        text/plain;
+    gzip_static on;
 
     log_format main
         'access: [$time_local] ip=$remote_addr r="$request" '
