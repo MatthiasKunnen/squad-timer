@@ -1,0 +1,107 @@
+name: Build and Publish Docker images
+
+on:
+  - push
+  - workflow_dispatch
+
+permissions:
+  packages: write
+
+jobs:
+  website:
+    name: Website Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version-file: package.json
+      - name: Enable corepack
+        run: corepack enable
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      - name: Cache Yarn packages
+        uses: actions/cache@v3.3.1
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: |
+          yarn install --immutable
+      - name: Build website
+        run: yarn workspace website run build:production
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.9.1
+      - name: Extract metadata (tags, labels) for website
+        id: website-meta
+        uses: docker/metadata-action@v4.6.0
+        with:
+          images: ghcr.io/MatthiasKunnen/squad-timer/website
+          labels: |
+            org.opencontainers.image.title=Squad Timer Website
+          tags: |
+            type=edge,branch=master
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push website Docker image
+        uses: docker/build-push-action@v4.1.1
+        with:
+          build-args: |
+            REVISION=${{ github.sha }}
+          context: ./website
+          file: ./website/Dockerfile
+          labels: ${{ steps.website-meta.outputs.labels }}
+          push: true
+          tags: ${{ steps.website-meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+  api:
+    name: API Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2.9.1
+      - name: Extract metadata (tags, labels) for API
+        id: api-meta
+        uses: docker/metadata-action@v4.6.0
+        with:
+          images: ghcr.io/MatthiasKunnen/squad-timer/api
+          labels: |
+            org.opencontainers.image.title=Squad Timer API
+          tags: |
+            type=edge,branch=master
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push API Docker image
+        uses: docker/build-push-action@v4.1.1
+        with:
+          build-args: |
+            REVISION=${{ github.sha }}
+          context: .
+          file: api/Dockerfile
+          labels: ${{ steps.api-meta.outputs.labels }}
+          push: true
+          tags: ${{ steps.api-meta.outputs.tags }}
+          target: app
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
